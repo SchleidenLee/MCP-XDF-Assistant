@@ -1,0 +1,74 @@
+2026-04-10 18:48:28 [INFO]  OCR Pipeline Started. Log file: /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/ielts-reading-feedback/scripts/logs/2026-04-10_18-48-28.log
+2026-04-10 18:48:28 [DEBUG] Loaded env var: TAVILY_API_KEY
+2026-04-10 18:48:28 [DEBUG] Loaded env var: MINIMAX_CN_API_KEY
+2026-04-10 18:48:28 [DEBUG] Loaded env var: XAI_API_KEY
+2026-04-10 18:48:28 [DEBUG] Loaded env var: OPENROUTER_API_KEY
+2026-04-10 18:48:28 [DEBUG] Loaded env var: MODELSCOPE_API_KEY
+2026-04-10 18:48:28 [DEBUG] Loaded env var: GOOGLE_API_KEY
+2026-04-10 18:48:28 [DEBUG] Loaded env var: DASHSCOPE_API_KEY
+2026-04-10 18:48:28 [DEBUG] Loaded env var: AMAP_WEBSERVICE_KEY
+2026-04-10 18:48:28 [DEBUG] Loaded env var: ALIBABA_CLOUD_ACCESS_KEY_ID
+2026-04-10 18:48:28 [DEBUG] Loaded env var: ALIBABA_CLOUD_ACCESS_KEY_SECRET
+2026-04-10 18:48:28 [DEBUG] Loaded env var: EIGHTY_EIGHT_API_KEY_NANO
+2026-04-10 18:48:28 [INFO] Found 7 answer sheets
+2026-04-10 18:48:28 [INFO] Parallel workers: 10
+2026-04-10 18:48:28 [INFO] Already completed: 0
+2026-04-10 18:48:28 [INFO] To process: 7
+2026-04-10 18:48:28 [INFO] Processing OCR for: 丁奕雯
+2026-04-10 18:48:28 [INFO] Processing OCR for: 丁箫然
+2026-04-10 18:48:28 [INFO] Processing OCR for: 伊丽咪努尔
+2026-04-10 18:48:28 [INFO] Processing OCR for: 侯洁
+2026-04-10 18:48:28 [INFO] Processing OCR for: 刘宇翔
+2026-04-10 18:48:28 [INFO] Processing OCR for: 沃伦
+2026-04-10 18:48:28 [INFO] Processing OCR for: 王曦悦
+2026-04-10 18:48:28 [DEBUG] Running ffmpeg: ffmpeg -i /mnt/d/Schleiden/Desktop/3376_初级讲义/沃伦.jpg -vf scale='if(gt(iw,ih),min(2048,iw),-1)':'if(gt(iw,ih),-1,min(2048,ih))' -q:v 2 -y /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/ielts-reading-feedback/cache/3376/compressed/沃伦_compressed.jpg
+2026-04-10 18:48:28 [DEBUG] Running ffmpeg: ffmpeg -i /mnt/d/Schleiden/Desktop/3376_初级讲义/丁奕雯.jpg -vf scale='if(gt(iw,ih),min(2048,iw),-1)':'if(gt(iw,ih),-1,min(2048,ih))' -q:v 2 -y /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/ielts-reading-feedback/cache/3376/compressed/丁奕雯_compressed.jpg
+2026-04-10 18:48:28 [DEBUG] Running ffmpeg: ffmpeg -i /mnt/d/Schleiden/Desktop/3376_初级讲义/王曦悦.jpg -vf scale='if(gt(iw,ih),min(2048,iw),-1)':'if(gt(iw,ih),-1,min(2048,ih))' -q:v 2 -y /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/ielts-reading-feedback/cache/3376/compressed/王曦悦_compressed.jpg
+2026-04-10 18:48:28 [DEBUG] Running ffmpeg: ffmpeg -i /mnt/d/Schleiden/Desktop/3376_初级讲义/侯洁.jpg -vf scale='if(gt(iw,ih),min(2048,iw),-1)':'if(gt(iw,ih),-1,min(2048,ih))' -q:v 2 -y /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/ielts-reading-feedback/cache/3376/compressed/侯洁_compressed.jpg
+2026-04-10 18:48:28 [DEBUG] Running ffmpeg: ffmpeg -i /mnt/d/Schleiden/Desktop/3376_初级讲义/伊丽咪努尔.jpg -vf scale='if(gt(iw,ih),min(2048,iw),-1)':'if(gt(iw,ih),-1,min(2048,ih))' -q:v 2 -y /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/ielts-reading-feedback/cache/3376/compressed/伊丽咪努尔_compressed.jpg
+2026-04-10 18:48:28 [DEBUG] Running ffmpeg: ffmpeg -i /mnt/d/Schleiden/Desktop/3376_初级讲义/刘宇翔.jpg -vf scale='if(gt(iw,ih),min(2048,iw),-1)':'if(gt(iw,ih),-1,min(2048,ih))' -q:v 2 -y /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/ielts-reading-feedback/cache/3376/compressed/刘宇翔_compressed.jpg
+2026-04-10 18:48:28 [DEBUG] Running ffmpeg: ffmpeg -i /mnt/d/Schleiden/Desktop/3376_初级讲义/丁箫然.jpg -vf scale='if(gt(iw,ih),min(2048,iw),-1)':'if(gt(iw,ih),-1,min(2048,ih))' -q:v 2 -y /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/ielts-reading-feedback/cache/3376/compressed/丁箫然_compressed.jpg
+2026-04-10 18:48:28 [INFO] Image processed: 丁奕雯.jpg (4.09MB -> 0.39MB)
+2026-04-10 18:48:28 [INFO] Image processed: 伊丽咪努尔.jpg (3.88MB -> 0.31MB)
+2026-04-10 18:48:28 [DEBUG] Image /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/ielts-reading-feedback/cache/3376/compressed/伊丽咪努尔_compressed.jpg encoded to Base64 (Length: 426692)
+2026-04-10 18:48:28 [INFO] Calling DashScope API for 伊丽咪努尔_compressed...
+2026-04-10 18:48:28 [DEBUG] Image /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/ielts-reading-feedback/cache/3376/compressed/丁奕雯_compressed.jpg encoded to Base64 (Length: 538360)
+2026-04-10 18:48:28 [INFO] Calling DashScope API for 丁奕雯_compressed...
+2026-04-10 18:48:28 [INFO] Image processed: 王曦悦.jpg (16.07MB -> 0.58MB)
+2026-04-10 18:48:28 [DEBUG] Image /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/ielts-reading-feedback/cache/3376/compressed/王曦悦_compressed.jpg encoded to Base64 (Length: 815152)
+2026-04-10 18:48:28 [INFO] Calling DashScope API for 王曦悦_compressed...
+2026-04-10 18:48:28 [INFO] Image processed: 侯洁.jpg (16.50MB -> 0.63MB)
+2026-04-10 18:48:28 [DEBUG] Image /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/ielts-reading-feedback/cache/3376/compressed/侯洁_compressed.jpg encoded to Base64 (Length: 878368)
+2026-04-10 18:48:28 [INFO] Image processed: 沃伦.jpg (16.77MB -> 0.59MB)
+2026-04-10 18:48:28 [INFO] Calling DashScope API for 侯洁_compressed...
+2026-04-10 18:48:28 [DEBUG] Image /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/ielts-reading-feedback/cache/3376/compressed/沃伦_compressed.jpg encoded to Base64 (Length: 826556)
+2026-04-10 18:48:28 [INFO] Image processed: 刘宇翔.jpg (17.15MB -> 0.57MB)
+2026-04-10 18:48:28 [INFO] Calling DashScope API for 沃伦_compressed...
+2026-04-10 18:48:28 [INFO] Image processed: 丁箫然.jpg (17.09MB -> 0.58MB)
+2026-04-10 18:48:28 [DEBUG] Image /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/ielts-reading-feedback/cache/3376/compressed/刘宇翔_compressed.jpg encoded to Base64 (Length: 790956)
+2026-04-10 18:48:28 [INFO] Calling DashScope API for 刘宇翔_compressed...
+2026-04-10 18:48:28 [DEBUG] Image /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/ielts-reading-feedback/cache/3376/compressed/丁箫然_compressed.jpg encoded to Base64 (Length: 807876)
+2026-04-10 18:48:28 [INFO] Calling DashScope API for 丁箫然_compressed...
+2026-04-10 18:49:09 [INFO] Successfully extracted 40 answers.
+2026-04-10 18:49:09 [INFO]   OCR completed! Found 40 answers for 侯洁
+2026-04-10 18:49:09 [INFO] Success: 侯洁
+2026-04-10 18:49:13 [INFO] Successfully extracted 40 answers.
+2026-04-10 18:49:13 [INFO]   OCR completed! Found 40 answers for 王曦悦
+2026-04-10 18:49:13 [INFO] Success: 王曦悦
+2026-04-10 18:49:36 [INFO] Successfully extracted 40 answers.
+2026-04-10 18:49:36 [INFO]   OCR completed! Found 40 answers for 丁箫然
+2026-04-10 18:49:36 [INFO] Success: 丁箫然
+2026-04-10 18:49:44 [INFO] Successfully extracted 40 answers.
+2026-04-10 18:49:44 [INFO]   OCR completed! Found 40 answers for 沃伦
+2026-04-10 18:49:44 [INFO] Success: 沃伦
+2026-04-10 18:51:09 [INFO] Successfully extracted 40 answers.
+2026-04-10 18:51:09 [INFO]   OCR completed! Found 40 answers for 伊丽咪努尔
+2026-04-10 18:51:09 [INFO] Success: 伊丽咪努尔
+2026-04-10 18:51:26 [INFO] Successfully extracted 40 answers.
+2026-04-10 18:51:26 [INFO]   OCR completed! Found 40 answers for 刘宇翔
+2026-04-10 18:51:26 [INFO] Success: 刘宇翔
+2026-04-10 18:52:33 [INFO] Successfully extracted 40 answers.
+2026-04-10 18:52:33 [INFO]   OCR completed! Found 40 answers for 丁奕雯
+2026-04-10 18:52:33 [INFO] Success: 丁奕雯
+2026-04-10 18:52:33 [INFO] Pipeline Finished. Success: 7, Failed: 0
+2026-04-10 18:52:33 [INFO] All students OCR completed successfully!

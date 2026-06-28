@@ -1,0 +1,129 @@
+{
+  "course_type": "初级讲义",
+
+  "course_info": {
+    "target_students": "英语基础相对良好，自身水平在4.5分左右的学员",
+    "course_goal": "达到雅思A类阅读5分左右水平",
+    "material": "Complete IELTS初级课本选篇，难度低于剑雅真题",
+    "test_info": "剑雅真题A类阅读，共3篇，40题，包含所有题型"
+  },
+
+  "sections": [
+    {
+      "passage_id": 1,
+      "title": "The Importance of Children's Play",
+      "question_groups": [
+        {
+          "type": "fill_blank",
+          "type_name": "笔记填空",
+          "range": "1-8",
+          "questions": [
+            { "id": 1, "answers": ["creativity"] },
+            { "id": 2, "answers": ["rules"] },
+            { "id": 3, "answers": ["cities"] },
+            { "id": 4, "answers": ["traffic", "crime"] },
+            { "id": 5, "answers": ["crime", "traffic"] },
+            { "id": 6, "answers": ["competition"] },
+            { "id": 7, "answers": ["evidence"] },
+            { "id": 8, "answers": ["life"] }
+          ]
+        },
+        {
+          "type": "true_false_not_given",
+          "type_name": "TF判断",
+          "range": "9-13",
+          "questions": [
+            { "id": 9, "answers": ["TRUE"] },
+            { "id": 10, "answers": ["TRUE"] },
+            { "id": 11, "answers": ["NOT GIVEN"] },
+            { "id": 12, "answers": ["FALSE"] },
+            { "id": 13, "answers": ["TRUE"] }
+          ]
+        }
+      ]
+    },
+
+    {
+      "passage_id": 2,
+      "title": "A Chronicle of Timekeeping",
+      "question_groups": [
+        {
+          "type": "matching",
+          "type_name": "段落配信息",
+          "range": "14-17",
+          "questions": [
+            { "id": 14, "answers": ["D"] },
+            { "id": 15, "answers": ["B"] },
+            { "id": 16, "answers": ["F"] },
+            { "id": 17, "answers": ["E"] }
+          ]
+        },
+        {
+          "type": "matching",
+          "type_name": "人名配信息",
+          "range": "18-21",
+          "questions": [
+            { "id": 18, "answers": ["B"] },
+            { "id": 19, "answers": ["F"] },
+            { "id": 20, "answers": ["D"] },
+            { "id": 21, "answers": ["A"] }
+          ]
+        },
+        {
+          "type": "fill_blank",
+          "type_name": "图表填空",
+          "range": "22-26",
+          "questions": [
+            { "id": 22, "answers": ["ship's anchor", "an anchor", "the anchor", "anchor"] },
+            { "id": 23, "answers": ["escape wheel", "wheel"] },
+            { "id": 24, "answers": ["tooth"] },
+            { "id": 25, "answers": ["long pendulum", "pendulum"] },
+            { "id": 26, "answers": ["second"] }
+          ]
+        }
+      ]
+    },
+
+    {
+      "passage_id": 3,
+      "title": "What's Our Purpose of Gaining Knowledge?",
+      "question_groups": [
+        {
+          "type": "matching_heading",
+          "type_name": "段落配标题",
+          "range": "27-32",
+          "questions": [
+            { "id": 27, "answers": ["vi"] },
+            { "id": 28, "answers": ["viii"] },
+            { "id": 29, "answers": ["ii"] },
+            { "id": 30, "answers": ["iv"] },
+            { "id": 31, "answers": ["iii"] },
+            { "id": 32, "answers": ["vii"] }
+          ]
+        },
+        {
+          "type": "fill_blank",
+          "type_name": "摘要填空",
+          "range": "33-36",
+          "questions": [
+            { "id": 33, "answers": ["fire science"] },
+            { "id": 34, "answers": ["investigators"] },
+            { "id": 35, "answers": ["evidence"] },
+            { "id": 36, "answers": ["prosecution"] }
+          ]
+        },
+        {
+          "type": "yes_no_not_given",
+          "type_name": "YesNo判断",
+          "range": "37-40",
+          "questions": [
+            { "id": 37, "answers": ["NOT GIVEN"] },
+            { "id": 38, "answers": ["YES"] },
+            { "id": 39, "answers": ["NO"] },
+            { "id": 40, "answers": ["NO"] }
+          ]
+        }
+      ]
+    }
+  ]
+}

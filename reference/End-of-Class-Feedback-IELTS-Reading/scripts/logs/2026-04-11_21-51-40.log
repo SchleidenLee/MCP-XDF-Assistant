@@ -1,0 +1,42 @@
+2026-04-11 21:51:40 [INFO]  Feedback Generator Started. Log file: /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/end-of-class-feedback-ielts-reading/scripts/logs/2026-04-11_21-51-40.log
+2026-04-11 21:51:40 [DEBUG] Loaded env var: TAVILY_API_KEY
+2026-04-11 21:51:40 [DEBUG] Loaded env var: MINIMAX_CN_API_KEY
+2026-04-11 21:51:40 [DEBUG] Loaded env var: XAI_API_KEY
+2026-04-11 21:51:40 [DEBUG] Loaded env var: OPENROUTER_API_KEY
+2026-04-11 21:51:40 [DEBUG] Loaded env var: MODELSCOPE_API_KEY
+2026-04-11 21:51:40 [DEBUG] Loaded env var: GOOGLE_API_KEY
+2026-04-11 21:51:40 [DEBUG] Loaded env var: DASHSCOPE_API_KEY
+2026-04-11 21:51:40 [DEBUG] Loaded env var: AMAP_WEBSERVICE_KEY
+2026-04-11 21:51:40 [DEBUG] Loaded env var: ALIBABA_CLOUD_ACCESS_KEY_ID
+2026-04-11 21:51:40 [DEBUG] Loaded env var: ALIBABA_CLOUD_ACCESS_KEY_SECRET
+2026-04-11 21:51:40 [DEBUG] Loaded env var: EIGHTY_EIGHT_API_KEY_NANO
+2026-04-11 21:51:40 [INFO] Found 10 students to process
+2026-04-11 21:51:40 [INFO] Workers: 1
+2026-04-11 21:51:40 [INFO] Processing feedback for: ----
+2026-04-11 21:51:40 [INFO]   Calling LLM for analysis...
+2026-04-11 21:51:40 [INFO]   🚀 [API Start] 21:51:40
+2026-04-11 21:53:12 [INFO]   ✅ [API Done]  Received response in 91.78s
+2026-04-11 21:53:12 [INFO] Processing feedback for: ---
+2026-04-11 21:53:12 [ERROR] Failed: ----: cannot access local variable 'total_correct' where it is not associated with a value
+2026-04-11 21:53:12 [INFO]   Calling LLM for analysis...
+2026-04-11 21:53:12 [INFO]   🚀 [API Start] 21:53:12
+2026-04-11 21:54:42 [INFO]   ✅ [API Done]  Received response in 89.92s
+2026-04-11 21:54:42 [INFO] Processing feedback for: 刘明桦
+2026-04-11 21:54:42 [ERROR] Failed: ---: cannot access local variable 'total_correct' where it is not associated with a value
+2026-04-11 21:54:42 [INFO]   Calling LLM for analysis...
+2026-04-11 21:54:42 [INFO]   🚀 [API Start] 21:54:42
+2026-04-11 21:55:51 [INFO]   ✅ [API Done]  Received response in 68.78s
+2026-04-11 21:55:51 [INFO] Processing feedback for: 拉来
+2026-04-11 21:55:51 [ERROR] Failed: 刘明桦: cannot access local variable 'total_correct' where it is not associated with a value
+2026-04-11 21:55:51 [INFO]   Calling LLM for analysis...
+2026-04-11 21:55:51 [INFO]   🚀 [API Start] 21:55:51
+2026-04-11 21:56:58 [INFO]   ✅ [API Done]  Received response in 66.98s
+2026-04-11 21:56:58 [INFO] Processing feedback for: 曹铠铄
+2026-04-11 21:56:58 [ERROR] Failed: 拉来: cannot access local variable 'total_correct' where it is not associated with a value
+2026-04-11 21:56:58 [INFO]   Calling LLM for analysis...
+2026-04-11 21:56:58 [INFO]   🚀 [API Start] 21:56:58
+2026-04-11 21:58:19 [INFO]   ✅ [API Done]  Received response in 80.89s
+2026-04-11 21:58:19 [INFO] Processing feedback for: 白安
+2026-04-11 21:58:19 [ERROR] Failed: 曹铠铄: cannot access local variable 'total_correct' where it is not associated with a value
+2026-04-11 21:58:19 [INFO]   Calling LLM for analysis...
+2026-04-11 21:58:19 [INFO]   🚀 [API Start] 21:58:19

@@ -1,0 +1,95 @@
+{
+  "course_type": "初级教材",
+
+  "course_info": {
+    "target_students": "英语基础相对薄弱的学员",
+    "course_goal": "达到雅思A类阅读4.5-5分水平",
+    "material": "剑桥官方 Mindset 初级",
+    "test_info": "雅思G类阅读，共4篇，27题，只包含填空题，判断题，信息匹配题"
+  },
+
+  "sections": [
+    {
+      "passage_id": 1,
+      "title": "Smoke alarms in the home",
+      "question_groups": [
+        {
+          "type": "true_false_not_given",
+          "type_name": "TF判断题",
+          "range": "1-7",
+          "questions": [
+            { "id": 1, "answers": ["TRUE"] },
+            { "id": 2, "answers": ["FALSE"] },
+            { "id": 3, "answers": ["NOT GIVEN"] },
+            { "id": 4, "answers": ["TRUE"] },
+            { "id": 5, "answers": ["FALSE"] },
+            { "id": 6, "answers": ["TRUE"] },
+            { "id": 7, "answers": ["NOT GIVEN"] }
+          ]
+        }
+      ]
+    },
+
+    {
+      "passage_id": 2,
+      "title": "Sydney Opera House Tours",
+      "question_groups": [
+        {
+          "type": "matching",
+          "type_name": "Matching Information",
+          "range": "8-14",
+          "questions": [
+            { "id": 8, "answers": ["C"] },
+            { "id": 9, "answers": ["E"] },
+            { "id": 10, "answers": ["D"] },
+            { "id": 11, "answers": ["E"] },
+            { "id": 12, "answers": ["C"] },
+            { "id": 13, "answers": ["E"] },
+            { "id": 14, "answers": ["G"] }
+          ]
+        }
+      ]
+    },
+
+    {
+      "passage_id": 3,
+      "title": "Using Direct Mail to Sell Your Product",
+      "question_groups": [
+        {
+          "type": "fill_blank",
+          "type_name": "Gapfill",
+          "range": "15-21",
+          "questions": [
+            { "id": 15, "answers": ["decision maker"] },
+            { "id": 16, "answers": ["impact"] },
+            { "id": 17, "answers": ["opening"] },
+            { "id": 18, "answers": ["white envelop", "white envelope"] },
+            { "id": 19, "answers": ["brochure"] },
+            { "id": 20, "answers": ["free sample"] },
+            { "id": 21, "answers": ["response rate"] }
+          ]
+        }
+      ]
+    },
+
+    {
+      "passage_id": 4,
+      "title": "Job Specification: Communications Manager",
+      "question_groups": [
+        {
+          "type": "fill_blank",
+          "type_name": "Gapfill",
+          "range": "22-27",
+          "questions": [
+            { "id": 22, "answers": ["international profile", "profile"] },
+            { "id": 23, "answers": ["publications"] },
+            { "id": 24, "answers": ["website content"] },
+            { "id": 25, "answers": ["audience"] },
+            { "id": 26, "answers": ["purpose"] },
+            { "id": 27, "answers": ["post-graduate", "postgraduate"] }
+          ]
+        }
+      ]
+    }
+  ]
+}

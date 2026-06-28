@@ -1,0 +1,31 @@
+{
+  "task_id": "3915f59f",
+  "workflow": "daily_feedback",
+  "input": {
+    "target": "8888",
+    "lesson": 1,
+    "date": null
+  },
+  "status": "failed",
+  "created_at": "2026-06-29T00:15:24.851863",
+  "updated_at": "2026-06-29T00:15:24.916940",
+  "current_step": 2,
+  "total_steps": 5,
+  "steps": [
+    {
+      "step": 1,
+      "name": "定位课次",
+      "status": "running",
+      "started_at": "2026-06-29T00:15:24.852676",
+      "completed_at": null
+    },
+    {
+      "step": 2,
+      "name": "错误",
+      "status": "failed",
+      "started_at": null,
+      "completed_at": "2026-06-29T00:15:24.916932",
+      "detail": "脚本 search/find_lesson_files.py 无有效 JSON 输出"
+    }
+  ]
+}

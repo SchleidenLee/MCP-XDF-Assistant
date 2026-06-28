@@ -1,0 +1,30 @@
+2026-04-11 22:44:15 [INFO]  Feedback Generator Started. Log file: /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/end-of-class-feedback-ielts-reading/scripts/logs/2026-04-11_22-44-15.log
+2026-04-11 22:44:15 [DEBUG] Loaded env var: TAVILY_API_KEY
+2026-04-11 22:44:15 [DEBUG] Loaded env var: MINIMAX_CN_API_KEY
+2026-04-11 22:44:15 [DEBUG] Loaded env var: XAI_API_KEY
+2026-04-11 22:44:15 [DEBUG] Loaded env var: OPENROUTER_API_KEY
+2026-04-11 22:44:15 [DEBUG] Loaded env var: MODELSCOPE_API_KEY
+2026-04-11 22:44:15 [DEBUG] Loaded env var: GOOGLE_API_KEY
+2026-04-11 22:44:15 [DEBUG] Loaded env var: DASHSCOPE_API_KEY
+2026-04-11 22:44:15 [DEBUG] Loaded env var: AMAP_WEBSERVICE_KEY
+2026-04-11 22:44:15 [DEBUG] Loaded env var: ALIBABA_CLOUD_ACCESS_KEY_ID
+2026-04-11 22:44:15 [DEBUG] Loaded env var: ALIBABA_CLOUD_ACCESS_KEY_SECRET
+2026-04-11 22:44:15 [DEBUG] Loaded env var: EIGHTY_EIGHT_API_KEY_NANO
+2026-04-11 22:44:15 [INFO] Found 8 students to process
+2026-04-11 22:44:15 [INFO] Workers: 4
+2026-04-11 22:44:15 [INFO] Processing feedback for: 刘明桦
+2026-04-11 22:44:15 [INFO] Processing feedback for: 拉来
+2026-04-11 22:44:15 [INFO] Processing feedback for: 曹铠铄
+2026-04-11 22:44:15 [INFO] Processing feedback for: 白安
+2026-04-11 22:44:15 [INFO]   Loaded 8 lesson summaries
+2026-04-11 22:44:15 [INFO]   Loaded 5 lesson summaries
+2026-04-11 22:44:15 [INFO]   Loaded 5 lesson summaries
+2026-04-11 22:44:15 [INFO]   Calling LLM for analysis...
+2026-04-11 22:44:15 [INFO]   Calling LLM for analysis...
+2026-04-11 22:44:15 [INFO]   Calling LLM for analysis...
+2026-04-11 22:44:15 [INFO]   Loaded 8 lesson summaries
+2026-04-11 22:44:15 [INFO]   Calling LLM for analysis...
+2026-04-11 22:44:15 [INFO]   🚀 [API Start] 22:44:15
+2026-04-11 22:44:15 [INFO]   🚀 [API Start] 22:44:15
+2026-04-11 22:44:15 [INFO]   🚀 [API Start] 22:44:15
+2026-04-11 22:44:15 [INFO]   🚀 [API Start] 22:44:15

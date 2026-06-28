@@ -1,0 +1,13 @@
+2026-04-10 18:46:32 [INFO]  OCR Pipeline Started. Log file: /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/ielts-reading-feedback/scripts/logs/2026-04-10_18-46-32.log
+2026-04-10 18:46:32 [DEBUG] Loaded env var: TAVILY_API_KEY
+2026-04-10 18:46:32 [DEBUG] Loaded env var: MINIMAX_CN_API_KEY
+2026-04-10 18:46:32 [DEBUG] Loaded env var: XAI_API_KEY
+2026-04-10 18:46:32 [DEBUG] Loaded env var: OPENROUTER_API_KEY
+2026-04-10 18:46:32 [DEBUG] Loaded env var: MODELSCOPE_API_KEY
+2026-04-10 18:46:32 [DEBUG] Loaded env var: GOOGLE_API_KEY
+2026-04-10 18:46:32 [DEBUG] Loaded env var: DASHSCOPE_API_KEY
+2026-04-10 18:46:32 [DEBUG] Loaded env var: AMAP_WEBSERVICE_KEY
+2026-04-10 18:46:32 [DEBUG] Loaded env var: ALIBABA_CLOUD_ACCESS_KEY_ID
+2026-04-10 18:46:32 [DEBUG] Loaded env var: ALIBABA_CLOUD_ACCESS_KEY_SECRET
+2026-04-10 18:46:32 [DEBUG] Loaded env var: EIGHTY_EIGHT_API_KEY_NANO
+2026-04-10 18:46:32 [ERROR] Input directory does not exist: /mnt/d/Schleiden/Desktop/3376 初级讲义

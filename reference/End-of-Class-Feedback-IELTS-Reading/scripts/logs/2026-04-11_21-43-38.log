@@ -1,0 +1,34 @@
+2026-04-11 21:43:38 [INFO]  OCR Pipeline Started. Log file: /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/end-of-class-feedback-ielts-reading/scripts/logs/2026-04-11_21-43-38.log
+2026-04-11 21:43:38 [DEBUG] Loaded env var: TAVILY_API_KEY
+2026-04-11 21:43:38 [DEBUG] Loaded env var: MINIMAX_CN_API_KEY
+2026-04-11 21:43:38 [DEBUG] Loaded env var: XAI_API_KEY
+2026-04-11 21:43:38 [DEBUG] Loaded env var: OPENROUTER_API_KEY
+2026-04-11 21:43:38 [DEBUG] Loaded env var: MODELSCOPE_API_KEY
+2026-04-11 21:43:38 [DEBUG] Loaded env var: GOOGLE_API_KEY
+2026-04-11 21:43:38 [DEBUG] Loaded env var: DASHSCOPE_API_KEY
+2026-04-11 21:43:38 [DEBUG] Loaded env var: AMAP_WEBSERVICE_KEY
+2026-04-11 21:43:38 [DEBUG] Loaded env var: ALIBABA_CLOUD_ACCESS_KEY_ID
+2026-04-11 21:43:38 [DEBUG] Loaded env var: ALIBABA_CLOUD_ACCESS_KEY_SECRET
+2026-04-11 21:43:38 [DEBUG] Loaded env var: EIGHTY_EIGHT_API_KEY_NANO
+2026-04-11 21:43:38 [INFO] Found 2 answer sheets
+2026-04-11 21:43:38 [INFO] Parallel workers: 1
+2026-04-11 21:43:38 [INFO] Already completed: 0
+2026-04-11 21:43:38 [INFO] To process: 2
+2026-04-11 21:43:38 [INFO] Processing OCR for: 达那
+2026-04-11 21:43:38 [DEBUG] Running ffmpeg: ffmpeg -i /mnt/d/Schleiden/Desktop/3320_初级讲义/达那.jpg -vf scale='if(gt(iw,ih),min(2048,iw),-1)':'if(gt(iw,ih),-1,min(2048,ih))' -q:v 2 -y cache/3320/compressed/达那_compressed.jpg
+2026-04-11 21:43:38 [INFO] Image processed: 达那.jpg (0.16MB -> 0.16MB)
+2026-04-11 21:43:38 [DEBUG] Image cache/3320/compressed/达那_compressed.jpg encoded to Base64 (Length: 223140)
+2026-04-11 21:43:38 [INFO] Calling DashScope API for 达那_compressed...
+2026-04-11 21:45:36 [INFO] Successfully extracted 40 answers.
+2026-04-11 21:45:36 [INFO]   OCR completed! Found 40 answers for 达那
+2026-04-11 21:45:36 [INFO] Processing OCR for: 阿依江
+2026-04-11 21:45:36 [INFO] Success: 达那
+2026-04-11 21:45:36 [DEBUG] Running ffmpeg: ffmpeg -i /mnt/d/Schleiden/Desktop/3320_初级讲义/阿依江.jpg -vf scale='if(gt(iw,ih),min(2048,iw),-1)':'if(gt(iw,ih),-1,min(2048,ih))' -q:v 2 -y cache/3320/compressed/阿依江_compressed.jpg
+2026-04-11 21:45:37 [INFO] Image processed: 阿依江.jpg (0.15MB -> 0.14MB)
+2026-04-11 21:45:37 [DEBUG] Image cache/3320/compressed/阿依江_compressed.jpg encoded to Base64 (Length: 200892)
+2026-04-11 21:45:37 [INFO] Calling DashScope API for 阿依江_compressed...
+2026-04-11 21:46:11 [INFO] Successfully extracted 40 answers.
+2026-04-11 21:46:11 [INFO]   OCR completed! Found 40 answers for 阿依江
+2026-04-11 21:46:11 [INFO] Success: 阿依江
+2026-04-11 21:46:11 [INFO] Pipeline Finished. Success: 2, Failed: 0
+2026-04-11 21:46:11 [INFO] All students OCR completed successfully!

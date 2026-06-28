@@ -1,0 +1,65 @@
+2026-04-11 22:51:12 [INFO]  Feedback Generator Started. Log file: /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/end-of-class-feedback-ielts-reading/scripts/logs/2026-04-11_22-51-12.log
+2026-04-11 22:51:12 [DEBUG] Loaded env var: TAVILY_API_KEY
+2026-04-11 22:51:12 [DEBUG] Loaded env var: MINIMAX_CN_API_KEY
+2026-04-11 22:51:12 [DEBUG] Loaded env var: XAI_API_KEY
+2026-04-11 22:51:12 [DEBUG] Loaded env var: OPENROUTER_API_KEY
+2026-04-11 22:51:12 [DEBUG] Loaded env var: MODELSCOPE_API_KEY
+2026-04-11 22:51:12 [DEBUG] Loaded env var: GOOGLE_API_KEY
+2026-04-11 22:51:12 [DEBUG] Loaded env var: DASHSCOPE_API_KEY
+2026-04-11 22:51:12 [DEBUG] Loaded env var: AMAP_WEBSERVICE_KEY
+2026-04-11 22:51:12 [DEBUG] Loaded env var: ALIBABA_CLOUD_ACCESS_KEY_ID
+2026-04-11 22:51:12 [DEBUG] Loaded env var: ALIBABA_CLOUD_ACCESS_KEY_SECRET
+2026-04-11 22:51:12 [DEBUG] Loaded env var: EIGHTY_EIGHT_API_KEY_NANO
+2026-04-11 22:51:12 [INFO] Found 8 students to process
+2026-04-11 22:51:12 [INFO] Workers: 4
+2026-04-11 22:51:12 [INFO] Processing feedback for: 刘明桦
+2026-04-11 22:51:12 [INFO] Processing feedback for: 拉来
+2026-04-11 22:51:12 [INFO] Processing feedback for: 曹铠铄
+2026-04-11 22:51:12 [INFO] Processing feedback for: 白安
+2026-04-11 22:51:12 [INFO]   Loaded 5 lesson summaries
+2026-04-11 22:51:12 [INFO]   Loaded 8 lesson summaries
+2026-04-11 22:51:12 [INFO]   Loaded 5 lesson summaries
+2026-04-11 22:51:12 [INFO]   Calling LLM for analysis...
+2026-04-11 22:51:12 [INFO]   Calling LLM for analysis...
+2026-04-11 22:51:12 [INFO]   Calling LLM for analysis...
+2026-04-11 22:51:12 [INFO]   Loaded 8 lesson summaries
+2026-04-11 22:51:12 [INFO]   Calling LLM for analysis...
+2026-04-11 22:51:13 [INFO]   🚀 [API Start] 22:51:13
+2026-04-11 22:51:13 [INFO]   🚀 [API Start] 22:51:13
+2026-04-11 22:51:13 [INFO]   🚀 [API Start] 22:51:13
+2026-04-11 22:51:13 [INFO]   🚀 [API Start] 22:51:13
+2026-04-11 22:52:15 [INFO]   ✅ [API Done]  Received response in 62.05s
+2026-04-11 22:52:15 [INFO]   Generated: 3320结班反馈/拉来.md
+2026-04-11 22:52:15 [INFO] Processing feedback for: 达那
+2026-04-11 22:52:15 [INFO]   Loaded 8 lesson summaries
+2026-04-11 22:52:15 [INFO]   Calling LLM for analysis...
+2026-04-11 22:52:15 [INFO]   🚀 [API Start] 22:52:15
+2026-04-11 22:52:27 [INFO]   ✅ [API Done]  Received response in 74.21s
+2026-04-11 22:52:27 [INFO]   Generated: 3320结班反馈/白安.md
+2026-04-11 22:52:27 [INFO] Processing feedback for: 阿丽米热
+2026-04-11 22:52:27 [INFO]   Loaded 8 lesson summaries
+2026-04-11 22:52:27 [INFO]   Calling LLM for analysis...
+2026-04-11 22:52:27 [INFO]   🚀 [API Start] 22:52:27
+2026-04-11 22:52:29 [INFO]   ✅ [API Done]  Received response in 76.58s
+2026-04-11 22:52:29 [INFO]   Generated: 3320结班反馈/刘明桦.md
+2026-04-11 22:52:29 [INFO] Processing feedback for: 阿依江
+2026-04-11 22:52:29 [INFO]   Loaded 8 lesson summaries
+2026-04-11 22:52:29 [INFO]   Calling LLM for analysis...
+2026-04-11 22:52:29 [INFO]   🚀 [API Start] 22:52:29
+2026-04-11 22:52:49 [INFO]   ✅ [API Done]  Received response in 96.36s
+2026-04-11 22:52:49 [INFO]   Generated: 3320结班反馈/曹铠铄.md
+2026-04-11 22:52:49 [INFO] Processing feedback for: 韩依汎
+2026-04-11 22:52:49 [INFO]   Loaded 8 lesson summaries
+2026-04-11 22:52:49 [INFO]   Calling LLM for analysis...
+2026-04-11 22:52:49 [INFO]   🚀 [API Start] 22:52:49
+2026-04-11 22:54:09 [INFO]   ✅ [API Done]  Received response in 114.35s
+2026-04-11 22:54:09 [INFO]   Generated: 3320结班反馈/达那.md
+2026-04-11 22:54:15 [INFO]   ✅ [API Done]  Received response in 86.19s
+2026-04-11 22:54:15 [INFO]   Generated: 3320结班反馈/韩依汎.md
+2026-04-11 22:54:24 [INFO]   ✅ [API Done]  Received response in 117.05s
+2026-04-11 22:54:24 [INFO]   Generated: 3320结班反馈/阿丽米热.md
+2026-04-11 22:54:27 [INFO]   ✅ [API Done]  Received response in 117.65s
+2026-04-11 22:54:27 [INFO]   Generated: 3320结班反馈/阿依江.md
+2026-04-11 22:54:27 [INFO] Finished. Success: 8, Failed: 0
+2026-04-11 22:54:27 [INFO] Cleaning up cache: cache/3320
+2026-04-11 22:54:27 [INFO] Cache cleared.

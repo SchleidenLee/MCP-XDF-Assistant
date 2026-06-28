@@ -1,0 +1,129 @@
+{
+  "course_type": "中级教材",
+
+  "course_info": {
+    "target_students": "英语基础相对良好，自身水平在5分及以上，对题型有一定认知的学员",
+    "course_goal": "初步掌握结构阅读法，理解不同类型文章的常见行文逻辑，达到雅思A类阅读6分以上水平",
+    "material": "Complete IELTS中级教材选篇，难度趋近于剑雅真题",
+    "test_info": "剑雅真题A类阅读，共3篇，40题，包含所有题型"
+  },
+
+  "sections": [
+    {
+      "passage_id": 1,
+      "title": "Why we need to protect polar bears.",
+      "question_groups": [
+        {
+          "type": "true_false_not_given",
+          "type_name": "TF判断",
+          "range": "1-7",
+          "questions": [
+            { "id": 1, "answers": ["FALSE"] },
+            { "id": 2, "answers": ["FALSE"] },
+            { "id": 3, "answers": ["NOT GIVEN"] },
+            { "id": 4, "answers": ["TRUE"] },
+            { "id": 5, "answers": ["TRUE"] },
+            { "id": 6, "answers": ["FALSE"] },
+            { "id": 7, "answers": ["TRUE"] }
+          ]
+        },
+        {
+          "type": "fill_blank",
+          "type_name": "笔记填空",
+          "range": "8-13",
+          "questions": [
+            { "id": 8, "answers": ["violent"] },
+            { "id": 9, "answers": ["tool"] },
+            { "id": 10, "answers": ["meat"] },
+            { "id": 11, "answers": ["photographer"] },
+            { "id": 12, "answers": ["game"] },
+            { "id": 13, "answers": ["frustration"] }
+          ]
+        }
+      ]
+    },
+
+    {
+      "passage_id": 2,
+      "title": "The Step Pyramid of Djoser.",
+      "question_groups": [
+        {
+          "type": "matching_heading",
+          "type_name": "段落配标题",
+          "range": "14-20",
+          "questions": [
+            { "id": 14, "answers": ["iv"] },
+            { "id": 15, "answers": ["vii"] },
+            { "id": 16, "answers": ["ii"] },
+            { "id": 17, "answers": ["v"] },
+            { "id": 18, "answers": ["i"] },
+            { "id": 19, "answers": ["viii"] },
+            { "id": 20, "answers": ["vi"] }
+          ]
+        },
+        {
+          "type": "fill_blank",
+          "type_name": "笔记填空",
+          "range": "21-24",
+          "questions": [
+            { "id": 21, "answers": ["city"] },
+            { "id": 22, "answers": ["priests"] },
+            { "id": 23, "answers": ["trench"] },
+            { "id": 24, "answers": ["location"] }
+          ]
+        },
+        {
+          "type": "multiple_choice_multi",
+          "type_name": "多选",
+          "range": "25-26",
+          "questions": [
+            { "id": 25, "answers": ["B", "D"] },
+            { "id": 26, "answers": ["D", "B"] }
+          ]
+        }
+      ]
+    },
+
+    {
+      "passage_id": 3,
+      "title": "The future of work",
+      "question_groups": [
+        {
+          "type": "single_choice",
+          "type_name": "单选",
+          "range": "27-30",
+          "questions": [
+            { "id": 27, "answers": ["B"] },
+            { "id": 28, "answers": ["D"] },
+            { "id": 29, "answers": ["C"] },
+            { "id": 30, "answers": ["D"] }
+          ]
+        },
+        {
+          "type": "matching_list",
+          "type_name": "有词库摘要填空",
+          "range": "31-34",
+          "questions": [
+            { "id": 31, "answers": ["G"] },
+            { "id": 32, "answers": ["E"] },
+            { "id": 33, "answers": ["C"] },
+            { "id": 34, "answers": ["F"] }
+          ]
+        },
+        {
+          "type": "matching",
+          "type_name": "人名配信息",
+          "range": "35-40",
+          "questions": [
+            { "id": 35, "answers": ["B"] },
+            { "id": 36, "answers": ["A"] },
+            { "id": 37, "answers": ["C"] },
+            { "id": 38, "answers": ["A"] },
+            { "id": 39, "answers": ["B"] },
+            { "id": 40, "answers": ["C"] }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+2026-04-11 21:38:56 [INFO]  Setup Class Started. Log file: /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/end-of-class-feedback-ielts-reading/scripts/logs/2026-04-11_21-38-56.log
+2026-04-11 21:38:56 [INFO] Starting setup for: /mnt/d/Schleiden/Desktop/3320_初级讲义
+2026-04-11 21:38:56 [INFO] Parsed: class_id=3320, course_type=_初级讲义
+2026-04-11 21:38:56 [INFO] Found 1 students from 3320.md
+2026-04-11 21:38:56 [INFO] Found 1 students: ---
+2026-04-11 21:38:56 [INFO] Created cache for ---: cache/3320/---.json
+2026-04-11 21:38:56 [INFO] Fetching historical feedback...
+2026-04-11 21:38:56 [INFO] No historical feedback for ---
+2026-04-11 21:38:56 [INFO] Setup completed! Created 1 cache files.

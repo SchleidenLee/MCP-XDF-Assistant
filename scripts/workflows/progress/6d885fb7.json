@@ -1,0 +1,31 @@
+{
+  "task_id": "6d885fb7",
+  "workflow": "daily_feedback",
+  "input": {
+    "target": "9999",
+    "lesson": 1,
+    "date": null
+  },
+  "status": "failed",
+  "created_at": "2026-06-29T00:14:30.297600",
+  "updated_at": "2026-06-29T00:14:30.362294",
+  "current_step": 2,
+  "total_steps": 5,
+  "steps": [
+    {
+      "step": 1,
+      "name": "定位课次",
+      "status": "running",
+      "started_at": "2026-06-29T00:14:30.298633",
+      "completed_at": null
+    },
+    {
+      "step": 2,
+      "name": "错误",
+      "status": "failed",
+      "started_at": null,
+      "completed_at": "2026-06-29T00:14:30.362287",
+      "detail": "'NoneType' object has no attribute 'splitlines'"
+    }
+  ]
+}

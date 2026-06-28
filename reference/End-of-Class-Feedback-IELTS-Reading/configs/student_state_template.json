@@ -1,0 +1,45 @@
+{
+  "student_name": "张三",
+  "course_type": "初级教材",
+
+  "input": {
+    "image_path": "/input/张三.jpg"
+  },
+
+  "status": {
+    "ocr_done": false,
+    "graded": false,
+    "feedback_generated": false
+  },
+
+  "ocr": {
+    "raw_text": null,
+    "answers": null,
+    "confidence": null,
+    "error": null
+  },
+
+  "grading": {
+    "score": null,
+    "total": 40,
+    "accuracy": null,
+    "estimated_band": null,
+    "details": [],
+    "strengths": [],
+    "improvements": [],
+    "recommendations": [],
+    "warnings": [],
+    "error": null
+  },
+
+  "output": {
+    "feedback_path": null
+  },
+
+  "meta": {
+    "created_at": null,
+    "updated_at": null,
+    "version": "1.0",
+    "task_id": null
+  }
+}

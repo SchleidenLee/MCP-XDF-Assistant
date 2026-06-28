@@ -1,0 +1,25 @@
+2026-04-11 21:40:14 [INFO]  Setup Class Started. Log file: /mnt/x/AI/CoPaw/data/workspaces/teaching-assistant/skills/end-of-class-feedback-ielts-reading/scripts/logs/2026-04-11_21-40-14.log
+2026-04-11 21:40:14 [INFO] Starting setup for: /mnt/d/Schleiden/Desktop/3320_初级讲义
+2026-04-11 21:40:14 [INFO] Parsed: class_id=3320, course_type=初级讲义
+2026-04-11 21:40:14 [INFO] Found 9 students from 3320.md
+2026-04-11 21:40:14 [INFO] Found 9 students: ----, 阿丽米热, 拉来, 韩依汎, 阿依江, 达那, 白安, 曹铠铄, 刘明桦
+2026-04-11 21:40:14 [INFO] Created cache for ----: cache/3320/----.json
+2026-04-11 21:40:14 [INFO] Created cache for 阿丽米热: cache/3320/阿丽米热.json
+2026-04-11 21:40:14 [INFO] Created cache for 拉来: cache/3320/拉来.json
+2026-04-11 21:40:14 [INFO] Created cache for 韩依汎: cache/3320/韩依汎.json
+2026-04-11 21:40:14 [INFO] Created cache for 阿依江: cache/3320/阿依江.json
+2026-04-11 21:40:14 [INFO] Created cache for 达那: cache/3320/达那.json
+2026-04-11 21:40:14 [INFO] Created cache for 白安: cache/3320/白安.json
+2026-04-11 21:40:14 [INFO] Created cache for 曹铠铄: cache/3320/曹铠铄.json
+2026-04-11 21:40:14 [INFO] Created cache for 刘明桦: cache/3320/刘明桦.json
+2026-04-11 21:40:14 [INFO] Fetching historical feedback...
+2026-04-11 21:40:14 [INFO] No historical feedback for ----
+2026-04-11 21:40:14 [INFO] No historical feedback for 阿丽米热
+2026-04-11 21:40:14 [INFO] No historical feedback for 拉来
+2026-04-11 21:40:14 [INFO] No historical feedback for 韩依汎
+2026-04-11 21:40:14 [INFO] No historical feedback for 阿依江
+2026-04-11 21:40:14 [INFO] No historical feedback for 达那
+2026-04-11 21:40:14 [INFO] No historical feedback for 白安
+2026-04-11 21:40:14 [INFO] No historical feedback for 曹铠铄
+2026-04-11 21:40:14 [INFO] No historical feedback for 刘明桦
+2026-04-11 21:40:14 [INFO] Setup completed! Created 9 cache files.

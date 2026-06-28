@@ -1,0 +1,54 @@
+{
+  "task_id": "8bd9a9ab",
+  "workflow": "daily_feedback",
+  "input": {
+    "target": "9999",
+    "lesson": 1,
+    "date": null
+  },
+  "status": "failed",
+  "created_at": "2026-06-28T23:16:37.549750",
+  "updated_at": "2026-06-28T23:16:37.552597",
+  "current_step": 4,
+  "total_steps": 5,
+  "steps": [
+    {
+      "step": 1,
+      "name": "定位课次",
+      "status": "completed",
+      "started_at": "2026-06-28T23:16:37.550558",
+      "completed_at": "2026-06-28T23:16:37.551307",
+      "detail": {
+        "folder": "D:\\Schleiden\\Obsidian\\XDF\\TEST\\reference\\XDF\\Current Class\\9999\\9999 Lesson 1",
+        "lesson": 1,
+        "date": null
+      }
+    },
+    {
+      "step": 2,
+      "name": "检查原始记录",
+      "status": "completed",
+      "started_at": "2026-06-28T23:16:37.551551",
+      "completed_at": "2026-06-28T23:16:37.551975",
+      "detail": {
+        "raw_line_count": 0,
+        "insufficient": true
+      }
+    },
+    {
+      "step": 3,
+      "name": "补充原始记录",
+      "status": "running",
+      "started_at": "2026-06-28T23:16:37.552216",
+      "completed_at": null
+    },
+    {
+      "step": 4,
+      "name": "错误",
+      "status": "failed",
+      "started_at": null,
+      "completed_at": "2026-06-28T23:16:37.552594",
+      "detail": "list_lesson_dirs() missing 1 required positional argument: 'target_name'"
+    }
+  ]
+}

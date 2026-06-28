@@ -1,0 +1,53 @@
+{
+  "task_id": "bd7d0b09",
+  "workflow": "daily_feedback",
+  "input": {
+    "target": "8888",
+    "lesson": 1,
+    "date": null
+  },
+  "status": "failed",
+  "created_at": "2026-06-29T00:17:25.386774",
+  "updated_at": "2026-06-29T00:17:40.902426",
+  "current_step": 4,
+  "total_steps": 5,
+  "steps": [
+    {
+      "step": 1,
+      "name": "定位课次",
+      "status": "completed",
+      "started_at": "2026-06-29T00:17:25.387412",
+      "completed_at": "2026-06-29T00:17:25.450283",
+      "detail": {
+        "lesson": 1,
+        "date": "2026-07-01"
+      }
+    },
+    {
+      "step": 2,
+      "name": "检查原始记录",
+      "status": "completed",
+      "started_at": "2026-06-29T00:17:25.450691",
+      "completed_at": "2026-06-29T00:17:25.512664",
+      "detail": {
+        "raw_line_count": 0,
+        "insufficient": true
+      }
+    },
+    {
+      "step": 3,
+      "name": "补充原始记录",
+      "status": "running",
+      "started_at": "2026-06-29T00:17:25.513086",
+      "completed_at": null
+    },
+    {
+      "step": 4,
+      "name": "错误",
+      "status": "failed",
+      "started_at": null,
+      "completed_at": "2026-06-29T00:17:40.902418",
+      "detail": "脚本 write/write_raw_records.py 失败: usage: write_raw_records.py [-h] [--vault VAULT] --target TARGET\n                            --lesson-num LESSON_NUM [--student STUDENT]\n                            --records RECORDS\nwrite_raw_records.py: error: the following arguments are required: --records"
+    }
+  ]
+}

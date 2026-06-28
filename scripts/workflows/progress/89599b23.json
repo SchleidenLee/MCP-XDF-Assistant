@@ -1,0 +1,65 @@
+{
+  "task_id": "89599b23",
+  "workflow": "daily_feedback",
+  "input": {
+    "target": "8888",
+    "lesson": 1,
+    "date": null
+  },
+  "status": "completed",
+  "created_at": "2026-06-29T00:18:12.163357",
+  "updated_at": "2026-06-29T00:19:22.587240",
+  "current_step": 5,
+  "total_steps": 5,
+  "steps": [
+    {
+      "step": 1,
+      "name": "定位课次",
+      "status": "completed",
+      "started_at": "2026-06-29T00:18:12.164140",
+      "completed_at": "2026-06-29T00:18:12.226685",
+      "detail": {
+        "lesson": 1,
+        "date": "2026-07-01"
+      }
+    },
+    {
+      "step": 2,
+      "name": "检查原始记录",
+      "status": "completed",
+      "started_at": "2026-06-29T00:18:12.227103",
+      "completed_at": "2026-06-29T00:18:12.291792",
+      "detail": {
+        "raw_line_count": 0,
+        "insufficient": true
+      }
+    },
+    {
+      "step": 3,
+      "name": "补充原始记录",
+      "status": "completed",
+      "started_at": "2026-06-29T00:18:12.292221",
+      "completed_at": "2026-06-29T00:18:29.229827",
+      "detail": {
+        "generated": "- 学员A：表现积极，口语Part 2话题展开逻辑清晰，但在Part 3深入讨论时词汇丰富度略有欠缺，需多积累同义替换。\n- 学员B：作业未按时提交大作文，已督促其本周五前补交，下次课前需重点检查其 ..."
+      }
+    },
+    {
+      "step": 4,
+      "name": "生成反馈",
+      "status": "completed",
+      "started_at": "2026-06-29T00:18:29.230237",
+      "completed_at": "2026-06-29T00:19:22.521732",
+      "detail": {
+        "student_count": 4
+      }
+    },
+    {
+      "step": 5,
+      "name": "写入反馈",
+      "status": "completed",
+      "started_at": "2026-06-29T00:19:22.522216",
+      "completed_at": "2026-06-29T00:19:22.586865"
+    }
+  ]
+}

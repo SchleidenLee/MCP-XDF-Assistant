@@ -1,0 +1,64 @@
+{
+  "task_id": "3189dd32",
+  "workflow": "daily_feedback",
+  "input": {
+    "target": "8888",
+    "lesson": 1,
+    "date": null
+  },
+  "status": "running",
+  "created_at": "2026-06-29T00:23:59.097721",
+  "updated_at": "2026-06-29T00:24:51.185507",
+  "current_step": 4,
+  "total_steps": 5,
+  "steps": [
+    {
+      "step": 1,
+      "name": "定位课次",
+      "status": "completed",
+      "started_at": "2026-06-29T00:23:59.098485",
+      "completed_at": "2026-06-29T00:23:59.183460",
+      "detail": {
+        "lesson": 1,
+        "date": "2026-07-01"
+      }
+    },
+    {
+      "step": 2,
+      "name": "检查原始记录",
+      "status": "completed",
+      "started_at": "2026-06-29T00:23:59.183931",
+      "completed_at": "2026-06-29T00:23:59.184846",
+      "detail": {
+        "students": [
+          "张三",
+          "李四"
+        ],
+        "students_need_raw": [
+          "张三",
+          "李四"
+        ]
+      }
+    },
+    {
+      "step": 3,
+      "name": "补充原始记录",
+      "status": "completed",
+      "started_at": "2026-06-29T00:23:59.185276",
+      "completed_at": "2026-06-29T00:24:51.185098",
+      "detail": {
+        "generated_for": [
+          "张三",
+          "李四"
+        ]
+      }
+    },
+    {
+      "step": 4,
+      "name": "生成反馈",
+      "status": "running",
+      "started_at": "2026-06-29T00:24:51.185502",
+      "completed_at": null
+    }
+  ]
+}
