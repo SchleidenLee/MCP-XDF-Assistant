@@ -25,7 +25,7 @@ import json
 import base64
 from pathlib import Path
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from xdf_utils import resolve_vault, format_output
 
 try:
@@ -86,11 +86,11 @@ def get_mime_type(image_path: str) -> str:
 
 def call_vision_api(image_paths: list[str], model: str) -> str:
     """调用多模态 LLM API 识别答题卡"""
-    api_key = os.environ.get("QWEN_API_KEY") or os.environ.get("OPENAI_API_KEY")
+    api_key = os.environ.get("OCR_API_KEY") or os.environ.get("QWEN_API_KEY") or os.environ.get("OPENAI_API_KEY")
     if not api_key:
-        raise ValueError("未设置 QWEN_API_KEY 或 OPENAI_API_KEY 环境变量")
+        raise ValueError("未设置 OCR_API_KEY、QWEN_API_KEY 或 OPENAI_API_KEY 环境变量")
 
-    base_url = os.environ.get("QWEN_BASE_URL") or os.environ.get("OPENAI_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1")
+    base_url = os.environ.get("OCR_API_URL") or os.environ.get("QWEN_BASE_URL") or os.environ.get("OPENAI_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1")
 
     # 构建消息内容
     content = []
@@ -103,14 +103,20 @@ def call_vision_api(image_paths: list[str], model: str) -> str:
             "image_url": {"url": f"data:{mime_type};base64,{base64_image}"},
         })
 
-    # 添加文本提示
+    # 添加文本提示（支持所有 IELTS 阅读题型）
     content.append({
         "type": "text",
         "text": (
-            "这是一张 IELTS 答题卡图像。请识别图中所有 40 道题的答案（每题 A/B/C/D）。"
-            "请以 JSON 格式返回，格式为：{\"answers\": [\"A\", \"B\", \"C\", ...]}，"
-            "其中 answers 数组包含 40 个元素，对应第 1 到第 40 题的答案。"
-            "如果某题无法识别，请填 \"X\"。"
+            "这是一张 IELTS 阅读答题卡。请识别所有 40 道题的答案。\n\n"
+            "要求：\n"
+            "1. 按题号顺序提取答案（Q1-Q40）\n"
+            "2. 填空题直接提取单词\n"
+            "3. 判断题识别 T/F/TRUE/FALSE/NG/N.G 等\n"
+            "4. 选择题识别 A/B/C/D\n"
+            "5. 配标题题识别罗马数字（I, II, III, IV, V, VI, VII, VIII）\n\n"
+            "请以 JSON 格式返回，格式为：{\"answers\": [\"答案1\", \"答案2\", ...]}，\n"
+            "其中 answers 数组包含 40 个元素，对应第 1 到第 40 题的答案。\n"
+            "如果某题无法识别，请填 \"X\"。\n"
             "只返回 JSON，不要其他文字。"
         ),
     })
@@ -123,13 +129,13 @@ def call_vision_api(image_paths: list[str], model: str) -> str:
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {api_key}",
+        "Accept": "application/json",
     }
 
+    # Reference 脚本没有传 temperature 和 max_tokens，避免不兼容参数导致 400
     payload = {
         "model": model,
         "messages": messages,
-        "temperature": 0.1,
-        "max_tokens": 2048,
     }
 
     url = f"{base_url.rstrip('/')}/chat/completions"

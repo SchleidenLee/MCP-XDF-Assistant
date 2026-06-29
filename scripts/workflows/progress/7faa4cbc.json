@@ -1,0 +1,70 @@
+{
+  "task_id": "7faa4cbc",
+  "workflow": "end_of_class_feedback",
+  "input": {
+    "target": "3279",
+    "answer_sheet_folder": "D:\\Schleiden\\Desktop\\3279中级教材",
+    "config_file": "x:\\AI\\projects\\XDFManagerMCP\\configs\\中级教材.json",
+    "course_type": "中级教材"
+  },
+  "status": "completed",
+  "created_at": "2026-06-29T13:23:00.088101",
+  "updated_at": "2026-06-29T13:31:47.420706",
+  "current_step": 4,
+  "total_steps": 4,
+  "steps": [
+    {
+      "step": 1,
+      "name": "初始化结班缓存",
+      "status": "completed",
+      "started_at": "2026-06-29T13:23:00.088734",
+      "completed_at": "2026-06-29T13:23:00.160177",
+      "detail": {
+        "student_count": 9,
+        "image_count": 6
+      }
+    },
+    {
+      "step": 2,
+      "name": "OCR 识别答题卡",
+      "status": "completed",
+      "started_at": "2026-06-29T13:23:00.161659",
+      "completed_at": "2026-06-29T13:23:00.583583",
+      "detail": {
+        "ocr_done": 0,
+        "total": 9
+      }
+    },
+    {
+      "step": 3,
+      "name": "批改 + 估分",
+      "status": "completed",
+      "started_at": "2026-06-29T13:23:00.584014",
+      "completed_at": "2026-06-29T13:23:00.585141",
+      "detail": {
+        "graded_done": 0,
+        "total": 9
+      }
+    },
+    {
+      "step": 4,
+      "name": "生成结班反馈",
+      "status": "completed",
+      "started_at": "2026-06-29T13:23:00.585522",
+      "completed_at": "2026-06-29T13:31:47.420242",
+      "detail": {
+        "feedback_files": [
+          "D:\\Schleiden\\Obsidian\\XDF\\Current Class\\3279\\3279结班反馈\\杨笑语.md",
+          "D:\\Schleiden\\Obsidian\\XDF\\Current Class\\3279\\3279结班反馈\\童孖玥.md",
+          "D:\\Schleiden\\Obsidian\\XDF\\Current Class\\3279\\3279结班反馈\\李祎旸.md",
+          "D:\\Schleiden\\Obsidian\\XDF\\Current Class\\3279\\3279结班反馈\\张博盛.md",
+          "D:\\Schleiden\\Obsidian\\XDF\\Current Class\\3279\\3279结班反馈\\韩伊娜尔.md",
+          "D:\\Schleiden\\Obsidian\\XDF\\Current Class\\3279\\3279结班反馈\\马钰然.md",
+          "D:\\Schleiden\\Obsidian\\XDF\\Current Class\\3279\\3279结班反馈\\李承诚.md",
+          "李嘉葉: [Errno 2] No such file or directory: 'D:\\\\Schleiden\\\\Obsidian\\\\XDF\\\\Current Class\\\\3279\\\\3279结班反馈\\\\李嘉葉.md'",
+          "赵曼语: [Errno 2] No such file or directory: 'D:\\\\Schleiden\\\\Obsidian\\\\XDF\\\\Current Class\\\\3279\\\\3279结班反馈\\\\赵曼语.md'"
+        ]
+      }
+    }
+  ]
+}

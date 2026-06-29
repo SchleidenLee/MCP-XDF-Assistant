@@ -29,6 +29,7 @@ from pathlib import Path
 
 from xdf_utils import (
     resolve_vault,
+    resolve_target,
     read_md_file,
     list_lesson_dirs,
     format_output,
@@ -48,37 +49,53 @@ def main():
         sys.exit(1)
 
     students = []
-    for sub in vault.iterdir():
-        if not sub.is_dir():
-            continue
-        if not is_one_on_one_folder(sub):
-            continue
+    # 搜索目录：Vault 根目录 + Current Class + Archived
+    search_dirs = [vault]
+    for subdir_name in ["Current Class", "Archived"]:
+        subdir = vault / subdir_name
+        if subdir.is_dir():
+            search_dirs.append(subdir)
 
-        control_file = sub / f"{sub.name}.md"
-        _, fm = read_md_file(control_file)
+    seen_targets = set()
 
-        lessons = list_lesson_dirs(sub, sub.name)
+    for search_dir in search_dirs:
+        for sub in search_dir.iterdir():
+            if not sub.is_dir():
+                continue
 
-        # 提取课型标签
-        tags = fm.get("tags", [])
-        if isinstance(tags, str):
-            tags = [t.strip() for t in tags.split(",")]
-        course_tags = [
-            t.lstrip("#") for t in tags
-            if t and "学员档案" not in t and "一对一" not in t
-        ]
-        course_type = course_tags[0] if course_tags else ""
+            target_name = sub.name
+            if target_name in seen_targets:
+                continue
+            seen_targets.add(target_name)
 
-        students.append({
-            "name": sub.name,
-            "path": str(sub),
-            "lesson_count": len(lessons),
-            "course_type": course_type,
-            "schedule_type": fm.get("schedule_type", ""),
-            "status": fm.get("status", ""),
-            "total_lessons": int(fm.get("total_lessons", 0) or 0),
-            "last_lesson_date": fm.get("last_lesson_date", ""),
-        })
+            if not is_one_on_one_folder(sub):
+                continue
+
+            control_file = sub / f"{target_name}.md"
+            _, fm = read_md_file(control_file)
+
+            lessons = list_lesson_dirs(sub, target_name)
+
+            # 提取课型标签
+            tags = fm.get("tags", [])
+            if isinstance(tags, str):
+                tags = [t.strip() for t in tags.split(",")]
+            course_tags = [
+                t.lstrip("#") for t in tags
+                if t and "学员档案" not in t and "一对一" not in t
+            ]
+            course_type = course_tags[0] if course_tags else ""
+
+            students.append({
+                "name": target_name,
+                "path": str(sub),
+                "lesson_count": len(lessons),
+                "course_type": course_type,
+                "schedule_type": fm.get("schedule_type", ""),
+                "status": fm.get("status", ""),
+                "total_lessons": int(fm.get("total_lessons", 0) or 0),
+                "last_lesson_date": fm.get("last_lesson_date", ""),
+            })
 
     students.sort(key=lambda x: x["name"])
     print(format_output("ok", data={"students": students, "count": len(students)}))

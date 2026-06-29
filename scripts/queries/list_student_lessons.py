@@ -41,60 +41,73 @@ from xdf_utils import (
 def find_student_lessons(vault: Path, student_name: str) -> list[dict]:
     """遍历所有档案，查找包含该学员的课次"""
     results = []
-    # 遍历 Vault 下所有一级目录
-    for target_dir in vault.iterdir():
-        if not target_dir.is_dir():
-            continue
+    # 遍历 Vault 下所有目录（根目录 + Current Class + Archived）
+    search_dirs = [vault]
+    for subdir_name in ["Current Class", "Archived"]:
+        subdir = vault / subdir_name
+        if subdir.is_dir():
+            search_dirs.append(subdir)
 
-        target_name = target_dir.name
-        target_type = None
-        if is_class_folder(target_dir):
-            target_type = "class"
-        elif is_one_on_one_folder(target_dir):
-            # 一对一目录名就是学员名，直接匹配
-            if student_name not in target_name:
+    seen_targets = set()
+
+    for target_dir in search_dirs:
+        for sub in target_dir.iterdir():
+            if not sub.is_dir():
                 continue
-            target_type = "one_on_one"
-        else:
-            continue
 
-        lesson_dirs = list_lesson_dirs(target_dir, target_name)
-        for lesson_dir in lesson_dirs:
-            m = re.search(r"Lesson\s+(\d+)", lesson_dir.name, re.IGNORECASE)
-            if not m:
+            target_name = sub.name
+            if target_name in seen_targets:
                 continue
-            lesson_num = int(m.group(1))
+            seen_targets.add(target_name)
 
-            # 对于班课，需要确认 Feedback 文件中确实包含该学员
-            if target_type == "class":
-                fb_file = lesson_dir / f"Feedback {lesson_num}.md"
-                if not fb_file.exists():
+            target_type = None
+            if is_class_folder(sub):
+                target_type = "class"
+            elif is_one_on_one_folder(sub):
+                # 一对一目录名就是学员名，直接匹配
+                if student_name not in target_name:
                     continue
-                content = fb_file.read_text(encoding="utf-8")
-                # 用正则匹配二级标题 ## 👤 学员名 或 ## 学员名（排除 ###）
-                pattern = rf"^##(?!\s*#)\s*[👤\s]*{re.escape(student_name)}\s*$"
-                if not re.search(pattern, content, re.MULTILINE):
+                target_type = "one_on_one"
+            else:
+                continue
+
+            lesson_dirs = list_lesson_dirs(sub, target_name)
+            for lesson_dir in lesson_dirs:
+                m = re.search(r"Lesson\s+(\d+)", lesson_dir.name, re.IGNORECASE)
+                if not m:
                     continue
+                lesson_num = int(m.group(1))
 
-            # 读取课次日期
-            lesson_file = lesson_dir / f"{target_name} Lesson {lesson_num}.md"
-            date_str = None
-            if lesson_file.exists():
-                _, fm = read_md_file(lesson_file)
-                date_raw = fm.get("Date", "")
-                if date_raw:
-                    m2 = re.match(r"(\d{4}-\d{2}-\d{2})", str(date_raw))
-                    if m2:
-                        date_str = m2.group(1)
+                # 对于班课，需要确认 Feedback 文件中确实包含该学员
+                if target_type == "class":
+                    fb_file = lesson_dir / f"Feedback {lesson_num}.md"
+                    if not fb_file.exists():
+                        continue
+                    content = fb_file.read_text(encoding="utf-8")
+                    # 用正则匹配二级标题 ## 👤 学员名 或 ## 学员名（排除 ###）
+                    pattern = rf"^##(?!\s*#)\s*[👤\s]*{re.escape(student_name)}\s*$"
+                    if not re.search(pattern, content, re.MULTILINE):
+                        continue
 
-            results.append({
-                "type": target_type,
-                "target_name": target_name,
-                "lesson_num": lesson_num,
-                "date": date_str,
-                "path": str(lesson_dir),
-                "has_feedback_file": (lesson_dir / f"Feedback {lesson_num}.md").exists(),
-            })
+                # 读取课次日期
+                lesson_file = lesson_dir / f"{target_name} Lesson {lesson_num}.md"
+                date_str = None
+                if lesson_file.exists():
+                    _, fm = read_md_file(lesson_file)
+                    date_raw = fm.get("Date", "")
+                    if date_raw:
+                        m2 = re.match(r"(\d{4}-\d{2}-\d{2})", str(date_raw))
+                        if m2:
+                            date_str = m2.group(1)
+
+                results.append({
+                    "type": target_type,
+                    "target_name": target_name,
+                    "lesson_num": lesson_num,
+                    "date": date_str,
+                    "path": str(lesson_dir),
+                    "has_feedback_file": (lesson_dir / f"Feedback {lesson_num}.md").exists(),
+                })
 
     # 按日期排序
     results.sort(key=lambda x: (x["date"] or "", x["target_name"], x["lesson_num"]))

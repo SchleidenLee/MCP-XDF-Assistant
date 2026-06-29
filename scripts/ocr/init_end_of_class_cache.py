@@ -25,8 +25,8 @@ import json
 import re
 from pathlib import Path
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from xdf_utils import resolve_vault, read_md_file, parse_frontmatter, format_output
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from xdf_utils import resolve_vault, resolve_target, read_md_file, parse_frontmatter, format_output
 
 
 def extract_students_from_archive(archive_path: Path) -> list[str]:
@@ -159,9 +159,8 @@ def init_end_of_class_cache(
     class_id = target
     course_type = ""
     if not class_id and answer_sheet_folder:
-        from pathlib import Path
         folder_name = Path(answer_sheet_folder).name
-        match = __import__("re").match(r'(\d+)[_\s]*(.+)', folder_name)
+        match = re.match(r'(\d+)[_\s]*(.+)', folder_name)
         if match:
             class_id = match.group(1)
             course_type = match.group(2).strip('_- ')
@@ -172,9 +171,10 @@ def init_end_of_class_cache(
         return format_output("error", error="请指定 --target 或 --answer-sheet-folder")
 
     # 1. 找到班级文件夹
-    class_path = vault / class_id
-    if not class_path.exists():
-        return format_output("error", error=f"班级文件夹不存在: {class_id}")
+    try:
+        class_path = resolve_target(vault, class_id)
+    except FileNotFoundError as e:
+        return format_output("error", error=str(e))
 
     # 2. 提取学生名单
     archive_file = class_path / f"{class_id}.md"

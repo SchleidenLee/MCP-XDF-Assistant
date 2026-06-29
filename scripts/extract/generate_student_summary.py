@@ -32,6 +32,7 @@ from pathlib import Path
 
 from xdf_utils import (
     resolve_vault,
+    resolve_target,
     read_md_file,
     list_lesson_dirs,
     extract_raw_from_content,
@@ -91,66 +92,79 @@ def main():
     lesson_filter = parse_lesson_range(args.lessons) if args.lessons else None
     summary = []
 
-    # 遍历所有档案
-    for sub in vault.iterdir():
-        if not sub.is_dir():
-            continue
+    # 遍历所有档案（根目录 + Current Class + Archived）
+    search_dirs = [vault]
+    for subdir_name in ["Current Class", "Archived"]:
+        subdir = vault / subdir_name
+        if subdir.is_dir():
+            search_dirs.append(subdir)
 
-        target_name = sub.name
-        target_type = None
-        if is_class_folder(sub):
-            target_type = "class"
-        elif is_one_on_one_folder(sub):
-            if args.student not in target_name:
-                continue
-            target_type = "one_on_one"
-        else:
-            continue
+    seen_targets = set()
 
-        lesson_dirs = list_lesson_dirs(sub, target_name)
-        for lesson_dir in lesson_dirs:
-            m = re.search(r"Lesson\s+(\d+)", lesson_dir.name, re.IGNORECASE)
-            if not m:
-                continue
-            lesson_num = int(m.group(1))
-
-            if lesson_filter and lesson_num not in lesson_filter:
+    for search_dir in search_dirs:
+        for sub in search_dir.iterdir():
+            if not sub.is_dir():
                 continue
 
-            lesson_file = lesson_dir / f"{target_name} Lesson {lesson_num}.md"
-            date_str = None
-            if lesson_file.exists():
-                _, fm = read_md_file(lesson_file)
-                date_raw = fm.get("Date", "")
-                if date_raw:
-                    m2 = re.match(r"(\d{4}-\d{2}-\d{2})", str(date_raw))
-                    if m2:
-                        date_str = m2.group(1)
+            target_name = sub.name
+            if target_name in seen_targets:
+                continue
+            seen_targets.add(target_name)
 
-            # 提取原始记录和反馈
-            raw = []
-            feedback = ""
-
-            fb_file = lesson_dir / f"Feedback {lesson_num}.md"
-            if fb_file.exists():
-                fb_content = fb_file.read_text(encoding="utf-8")
-                block = extract_student_block(fb_content, args.student)
-                if block:
-                    raw = extract_raw_from_content(block, "### 原始记录")
-                    feedback = extract_feedback_from_content(block)
-
-            # 班课如果没有该学员的块，跳过
-            if target_type == "class" and not raw and not feedback:
+            target_type = None
+            if is_class_folder(sub):
+                target_type = "class"
+            elif is_one_on_one_folder(sub):
+                if args.student not in target_name:
+                    continue
+                target_type = "one_on_one"
+            else:
                 continue
 
-            summary.append({
-                "lesson_num": lesson_num,
-                "date": date_str,
-                "target": target_name,
-                "type": target_type,
-                "raw": raw,
-                "feedback": feedback,
-            })
+            lesson_dirs = list_lesson_dirs(sub, target_name)
+            for lesson_dir in lesson_dirs:
+                m = re.search(r"Lesson\s+(\d+)", lesson_dir.name, re.IGNORECASE)
+                if not m:
+                    continue
+                lesson_num = int(m.group(1))
+
+                if lesson_filter and lesson_num not in lesson_filter:
+                    continue
+
+                lesson_file = lesson_dir / f"{target_name} Lesson {lesson_num}.md"
+                date_str = None
+                if lesson_file.exists():
+                    _, fm = read_md_file(lesson_file)
+                    date_raw = fm.get("Date", "")
+                    if date_raw:
+                        m2 = re.match(r"(\d{4}-\d{2}-\d{2})", str(date_raw))
+                        if m2:
+                            date_str = m2.group(1)
+
+                # 提取原始记录和反馈
+                raw = []
+                feedback = ""
+
+                fb_file = lesson_dir / f"Feedback {lesson_num}.md"
+                if fb_file.exists():
+                    fb_content = fb_file.read_text(encoding="utf-8")
+                    block = extract_student_block(fb_content, args.student)
+                    if block:
+                        raw = extract_raw_from_content(block, "### 原始记录")
+                        feedback = extract_feedback_from_content(block)
+
+                # 班课如果没有该学员的块，跳过
+                if target_type == "class" and not raw and not feedback:
+                    continue
+
+                summary.append({
+                    "lesson_num": lesson_num,
+                    "date": date_str,
+                    "target": target_name,
+                    "type": target_type,
+                    "raw": raw,
+                    "feedback": feedback,
+                })
 
     summary.sort(key=lambda x: (x["date"] or "", x["target"], x["lesson_num"]))
 

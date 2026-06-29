@@ -172,6 +172,19 @@ def is_one_on_one_folder(path: Path) -> bool:
     return any("一对一" in t for t in tags)
 
 
+def resolve_target(vault: Path, target_name: str) -> Path:
+    """解析目标路径：依次查找 vault/{target}、vault/Current Class/{target}、vault/Archived/{target}"""
+    candidates = [
+        vault / target_name,
+        vault / "Current Class" / target_name,
+        vault / "Archived" / target_name,
+    ]
+    for c in candidates:
+        if c.exists() and c.is_dir():
+            return c
+    raise FileNotFoundError(f"目标 '{target_name}' 不存在")
+
+
 def list_lesson_dirs(target_path: Path, target_name: str) -> list[Path]:
     """列出目标目录下的所有 Lesson 子目录，按课次排序"""
     if not target_path.exists():

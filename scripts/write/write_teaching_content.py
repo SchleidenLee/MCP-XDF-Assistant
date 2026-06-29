@@ -18,7 +18,7 @@ import re
 import sys
 from pathlib import Path
 
-from xdf_utils import resolve_vault, read_md_file, format_output
+from xdf_utils import resolve_vault, resolve_target, read_md_file, format_output
 
 
 def write_teaching_content(lesson_file: Path, content: str) -> bool:
@@ -93,9 +93,10 @@ def main():
         sys.exit(1)
 
     # 定位 lesson 文件
-    target_path = vault / args.target
-    if not target_path.exists():
-        print(format_output("error", error=f"目标 '{args.target}' 不存在"))
+    try:
+        target_path = resolve_target(vault, args.target)
+    except FileNotFoundError as e:
+        print(format_output("error", error=str(e)))
         sys.exit(1)
 
     lesson_dir = target_path / f"{args.target} Lesson {args.lesson_num}"

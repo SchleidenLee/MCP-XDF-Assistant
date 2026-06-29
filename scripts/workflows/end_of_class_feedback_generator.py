@@ -23,7 +23,7 @@ from pathlib import Path
 # 添加父目录到 path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from xdf_utils import resolve_vault, format_output, read_md_file
+from xdf_utils import resolve_vault, format_output, read_md_file, resolve_target
 from llm_utils import call_llm
 
 SCRIPTS_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -193,9 +193,13 @@ def _grade_answers(correct_answers, student_answers, test_type="A"):
 
 def _load_cache(vault_path, target):
     """加载结班缓存"""
-    cache_path = Path(vault_path) / target / "cache" / f"{target}_end_of_class.json"
+    try:
+        class_path = resolve_target(Path(vault_path), target)
+    except FileNotFoundError:
+        return None, None
+    cache_path = class_path / "cache" / f"{target}_end_of_class.json"
     if not cache_path.exists():
-        return None
+        return None, None
     with open(cache_path, "r", encoding="utf-8") as f:
         return json.load(f), cache_path
 
@@ -434,7 +438,7 @@ def run_workflow(vault=None, answer_sheet_folder=None, config_file=None, course_
     })
 
     # 打印 task_id 供 Agent 轮询
-    print(json.dumps({"task_id": task_id}, ensure_ascii=False))
+    print(json.dumps({"task_id": task_id}, ensure_ascii=False), flush=True)
 
     try:
         vault_path = str(resolve_vault(vault))
@@ -493,7 +497,9 @@ def run_workflow(vault=None, answer_sheet_folder=None, config_file=None, course_
                             "confidence": ocr_result["data"]["confidence"]
                         }
                     except Exception as e:
-                        ocr_results[student] = {"error": str(e)}
+                        _update_step(progress, 2, "OCR 识别答题卡", "failed",
+                                     f"{student} 答题卡识别失败: {str(e)}")
+                        raise RuntimeError(f"OCR 识别失败（{student}）: {str(e)}")
 
             cache["ocr_results"] = ocr_results
             _update_cache(cache, cache_path)
@@ -535,7 +541,12 @@ def run_workflow(vault=None, answer_sheet_folder=None, config_file=None, course_
         _update_step(progress, 4, "生成结班反馈", "running")
 
         # 创建输出目录
-        output_dir = Path(vault_path) / target / f"{target}结班反馈"
+        try:
+            class_path = resolve_target(Path(vault_path), target)
+        except FileNotFoundError:
+            _update_step(progress, 4, "生成结班反馈", "failed", f"班级目录不存在: {target}")
+            raise
+        output_dir = class_path / f"{target}结班反馈"
         output_dir.mkdir(parents=True, exist_ok=True)
 
         feedback_files = []

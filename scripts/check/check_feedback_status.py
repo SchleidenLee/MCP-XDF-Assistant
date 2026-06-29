@@ -38,6 +38,7 @@ from datetime import datetime
 
 from xdf_utils import (
     resolve_vault,
+    resolve_target,
     read_md_file,
     list_lesson_dirs,
     check_feedback_file_status,
@@ -55,9 +56,8 @@ def parse_date(date_str: str) -> datetime | None:
         return None
 
 
-def check_target(vault: Path, target_name: str, date_start: datetime | None, date_end: datetime | None) -> tuple[list, list]:
+def check_target(target_path: Path, target_name: str, date_start: datetime | None, date_end: datetime | None) -> tuple[list, list]:
     """检查单个目标的反馈状态，返回 (pending_items, submitted_items)"""
-    target_path = vault / target_name
     if not target_path.exists():
         return [], []
 
@@ -105,17 +105,19 @@ def check_target(vault: Path, target_name: str, date_start: datetime | None, dat
         if isinstance(need_send, str):
             need_send = need_send.lower() in ("true", "yes", "1")
 
-        # 检查班级反馈状态
-        class_submitted = bool(re.search(r"-\s*\[x\]\s*提交反馈", content, re.IGNORECASE))
+        # 检查班级反馈状态（仅班课）
+        class_submitted = False
         class_has_content = False
-        class_fb_match = re.search(
-            r"###\s*反馈总结\s*\n<!--\s*AI_GENERATED_START\s*-->(.*?)<!--\s*AI_GENERATED_END\s*-->",
-            content,
-            re.DOTALL | re.IGNORECASE,
-        )
-        if class_fb_match:
-            inner = class_fb_match.group(1).strip()
-            class_has_content = inner and inner not in ("待生成", "")
+        if target_type == "class":
+            class_submitted = bool(re.search(r"-\s*\[x\]\s*提交反馈", content, re.IGNORECASE))
+            class_fb_match = re.search(
+                r"###\s*反馈总结\s*\n<!--\s*AI_GENERATED_START\s*-->(.*?)<!--\s*AI_GENERATED_END\s*-->",
+                content,
+                re.DOTALL | re.IGNORECASE,
+            )
+            if class_fb_match:
+                inner = class_fb_match.group(1).strip()
+                class_has_content = inner and inner not in ("待生成", "")
 
         # 检查学员反馈文件
         fb_file = lesson_dir / f"Feedback {lesson_num}.md"
@@ -123,12 +125,20 @@ def check_target(vault: Path, target_name: str, date_start: datetime | None, dat
 
         # 判定是否 pending
         reasons = []
-        if need_send and not class_submitted:
-            reasons.append("班级反馈未提交")
-        if need_send and not class_has_content:
-            reasons.append("班级反馈内容未生成")
-        if fb_status["exists"] and fb_status["pending"] > 0:
-            reasons.append(f"学员反馈未生成({fb_status['pending']}/{fb_status['students']})")
+        if target_type == "class":
+            # 班课：检查班级反馈 + 学员反馈
+            if need_send and not class_submitted:
+                reasons.append("班级反馈未提交")
+            if need_send and not class_has_content:
+                reasons.append("班级反馈内容未生成")
+            if fb_status["exists"] and fb_status["pending"] > 0:
+                reasons.append(f"学员反馈未生成({fb_status['pending']}/{fb_status['students']})")
+        elif target_type == "one_on_one":
+            # 一对一：只检查学员反馈（无班级反馈概念）
+            if fb_status["exists"] and fb_status["pending"] > 0:
+                reasons.append(f"学员反馈未生成")
+            elif not fb_status["exists"]:
+                reasons.append("反馈文件不存在")
 
         item = {
             "target": target_name,
@@ -179,18 +189,34 @@ def main():
     all_submitted = []
 
     if args.target:
-        p, s = check_target(vault, args.target, date_start, date_end)
+        try:
+            target_path = resolve_target(vault, args.target)
+        except FileNotFoundError as e:
+            print(format_output("error", error=str(e)))
+            sys.exit(1)
+        p, s = check_target(target_path, args.target, date_start, date_end)
         all_pending.extend(p)
         all_submitted.extend(s)
     else:
-        # 全局检查：遍历所有班课和一对一
-        for sub in vault.iterdir():
-            if not sub.is_dir():
-                continue
-            if is_class_folder(sub) or is_one_on_one_folder(sub):
-                p, s = check_target(vault, sub.name, date_start, date_end)
-                all_pending.extend(p)
-                all_submitted.extend(s)
+        # 全局检查：遍历所有班课和一对一（根目录 + Current Class + Archived）
+        search_dirs = [vault]
+        for subdir_name in ["Current Class", "Archived"]:
+            subdir = vault / subdir_name
+            if subdir.is_dir():
+                search_dirs.append(subdir)
+
+        seen_targets = set()
+        for search_dir in search_dirs:
+            for sub in search_dir.iterdir():
+                if not sub.is_dir():
+                    continue
+                if sub.name in seen_targets:
+                    continue
+                seen_targets.add(sub.name)
+                if is_class_folder(sub) or is_one_on_one_folder(sub):
+                    p, s = check_target(sub, sub.name, date_start, date_end)
+                    all_pending.extend(p)
+                    all_submitted.extend(s)
 
     # 按日期排序
     all_pending.sort(key=lambda x: (x["date"] or "", x["target"], x["lesson_num"]))

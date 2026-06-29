@@ -28,6 +28,7 @@ from collections import defaultdict
 
 from xdf_utils import (
     resolve_vault,
+    resolve_target,
     read_md_file,
     extract_table_rows,
     list_lesson_dirs,
@@ -53,53 +54,67 @@ def main():
     student_lesson_count = defaultdict(int)
     student_last_date = defaultdict(lambda: None)
 
-    for sub in vault.iterdir():
-        if not sub.is_dir():
-            continue
+    # 搜索目录：Vault 根目录 + Current Class + Archived
+    search_dirs = [vault]
+    for subdir_name in ["Current Class", "Archived"]:
+        subdir = vault / subdir_name
+        if subdir.is_dir():
+            search_dirs.append(subdir)
 
-        target_name = sub.name
-        if is_class_folder(sub):
-            control_file = sub / f"{target_name}.md"
-            content, _ = read_md_file(control_file)
-            rows = extract_table_rows(content, "姓名")
-            for row in rows:
-                name = row.get("姓名", "").strip()
-                if not name:
-                    continue
-                student_sources[name].append({"type": "class", "target": target_name})
-        elif is_one_on_one_folder(sub):
-            student_sources[target_name].append({"type": "one_on_one", "target": target_name})
+    seen_targets = set()
 
-        # 统计课次数和最后课次日期
-        lesson_dirs = list_lesson_dirs(sub, target_name)
-        for lesson_dir in lesson_dirs:
-            lesson_file = lesson_dir / f"{target_name} Lesson {lesson_dir.name.split()[-1]}.md"
-            date_str = None
-            if lesson_file.exists():
-                _, fm = read_md_file(lesson_file)
-                date_raw = fm.get("Date", "")
-                if date_raw:
-                    import re
-                    m = re.match(r"(\d{4}-\d{2}-\d{2})", str(date_raw))
-                    if m:
-                        date_str = m.group(1)
+    for search_dir in search_dirs:
+        for sub in search_dir.iterdir():
+            if not sub.is_dir():
+                continue
 
-            # 班课：给所有学员加课次
+            target_name = sub.name
+            if target_name in seen_targets:
+                continue
+            seen_targets.add(target_name)
+
             if is_class_folder(sub):
                 control_file = sub / f"{target_name}.md"
                 content, _ = read_md_file(control_file)
                 rows = extract_table_rows(content, "姓名")
                 for row in rows:
                     name = row.get("姓名", "").strip()
-                    if name:
-                        student_lesson_count[name] += 1
-                        if date_str and (not student_last_date[name] or date_str > student_last_date[name]):
-                            student_last_date[name] = date_str
-            else:
-                # 一对一
-                student_lesson_count[target_name] += 1
-                if date_str and (not student_last_date[target_name] or date_str > student_last_date[target_name]):
-                    student_last_date[target_name] = date_str
+                    if not name:
+                        continue
+                    student_sources[name].append({"type": "class", "target": target_name})
+            elif is_one_on_one_folder(sub):
+                student_sources[target_name].append({"type": "one_on_one", "target": target_name})
+
+            # 统计课次数和最后课次日期
+            lesson_dirs = list_lesson_dirs(sub, target_name)
+            for lesson_dir in lesson_dirs:
+                lesson_file = lesson_dir / f"{target_name} Lesson {lesson_dir.name.split()[-1]}.md"
+                date_str = None
+                if lesson_file.exists():
+                    _, fm = read_md_file(lesson_file)
+                    date_raw = fm.get("Date", "")
+                    if date_raw:
+                        import re
+                        m = re.match(r"(\d{4}-\d{2}-\d{2})", str(date_raw))
+                        if m:
+                            date_str = m.group(1)
+
+                # 班课：给所有学员加课次
+                if is_class_folder(sub):
+                    control_file = sub / f"{target_name}.md"
+                    content, _ = read_md_file(control_file)
+                    rows = extract_table_rows(content, "姓名")
+                    for row in rows:
+                        name = row.get("姓名", "").strip()
+                        if name:
+                            student_lesson_count[name] += 1
+                            if date_str and (not student_last_date[name] or date_str > student_last_date[name]):
+                                student_last_date[name] = date_str
+                else:
+                    # 一对一
+                    student_lesson_count[target_name] += 1
+                    if date_str and (not student_last_date[target_name] or date_str > student_last_date[target_name]):
+                        student_last_date[target_name] = date_str
 
     students = []
     for name in sorted(student_sources.keys()):

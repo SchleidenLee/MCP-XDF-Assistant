@@ -22,7 +22,7 @@ import re
 import sys
 from pathlib import Path
 
-from xdf_utils import resolve_vault, format_output
+from xdf_utils import resolve_vault, resolve_target, format_output
 
 AI_START = "<!-- AI_GENERATED_START -->"
 AI_END = "<!-- AI_GENERATED_END -->"
@@ -114,7 +114,7 @@ def write_student_feedback(feedback_file: Path, student_name: str, content: str)
     return True
 
 
-def process_json_batch(vault: Path, target: str, lesson_num: int, json_file: Path) -> list[dict]:
+def process_json_batch(target_path: Path, target: str, lesson_num: int, json_file: Path) -> list[dict]:
     """
     从 JSON 文件批量写入反馈。
     期望 JSON 格式：
@@ -130,7 +130,7 @@ def process_json_batch(vault: Path, target: str, lesson_num: int, json_file: Pat
         data = json.load(f)
 
     results = []
-    lesson_dir = vault / target / f"{target} Lesson {lesson_num}"
+    lesson_dir = target_path / f"{target} Lesson {lesson_num}"
     lesson_file = lesson_dir / f"{target} Lesson {lesson_num}.md"
     feedback_file = lesson_dir / f"Feedback {lesson_num}.md"
 
@@ -185,12 +185,18 @@ def main():
             print(format_output("error", error=str(e)))
             sys.exit(1)
 
+        try:
+            target_path = resolve_target(vault, args.target)
+        except FileNotFoundError as e:
+            print(format_output("error", error=str(e)))
+            sys.exit(1)
+
         json_path = Path(args.json_file)
         if not json_path.exists():
             print(format_output("error", error=f"JSON 文件不存在: {args.json_file}"))
             sys.exit(1)
 
-        results = process_json_batch(vault, args.target, args.lesson_num, json_path)
+        results = process_json_batch(target_path, args.target, args.lesson_num, json_path)
         if not results:
             print(format_output("error", error="JSON 文件中无有效反馈数据或文件不存在"))
             sys.exit(1)
@@ -217,7 +223,13 @@ def main():
         print(format_output("error", error=str(e)))
         sys.exit(1)
 
-    lesson_dir = vault / args.target / f"{args.target} Lesson {args.lesson_num}"
+    try:
+        target_path = resolve_target(vault, args.target)
+    except FileNotFoundError as e:
+        print(format_output("error", error=str(e)))
+        sys.exit(1)
+
+    lesson_dir = target_path / f"{args.target} Lesson {args.lesson_num}"
     if not lesson_dir.exists():
         print(format_output("error", error=f"课次目录不存在: {lesson_dir}"))
         sys.exit(1)

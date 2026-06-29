@@ -35,6 +35,7 @@ from pathlib import Path
 
 from xdf_utils import (
     resolve_vault,
+    resolve_target,
     read_md_file,
     list_lesson_dirs,
     extract_raw_from_content,
@@ -95,9 +96,10 @@ def main():
         print(format_output("error", error=str(e)))
         sys.exit(1)
 
-    target_path = vault / args.target
-    if not target_path.exists():
-        print(format_output("error", error=f"目标 '{args.target}' 不存在"))
+    try:
+        target_path = resolve_target(vault, args.target)
+    except FileNotFoundError as e:
+        print(format_output("error", error=str(e)))
         sys.exit(1)
 
     target_type = "unknown"

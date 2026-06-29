@@ -12,6 +12,7 @@ from datetime import datetime
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from xdf_utils import (
     resolve_vault,
+    resolve_target,
     format_output,
     is_class_folder,
     is_one_on_one_folder,
@@ -28,32 +29,18 @@ def create_test_feedback(
         vault = resolve_vault(vault_path)
 
         # 1. 查找档案
-        is_class = False
-        is_one_on_one = False
-        archive_path = None
-
-        # 直接检查 vault 下是否存在目标文件夹
-        target_folder = vault / target
-        if target_folder.exists() and target_folder.is_dir():
-            archive_file = target_folder / f"{target}.md"
-            if archive_file.exists():
-                if is_class_folder(target_folder):
-                    archive_path = archive_file
-                    is_class = True
-                elif is_one_on_one_folder(target_folder):
-                    archive_path = archive_file
-                    is_one_on_one = True
-                # 也检查 Archived
-        if not archive_path:
-            archived_folder = vault.parent.parent / "Archived" / target
-            if archived_folder.exists():
-                archive_file = archived_folder / f"{target}.md"
-                if archive_file.exists() and is_class_folder(archived_folder):
-                    archive_path = archive_file
-                    is_class = True
-
-        if not archive_path or not archive_path.exists():
+        try:
+            target_path = resolve_target(vault, target)
+        except FileNotFoundError:
             return format_output("error", error=f"未找到 {target} 的档案文件")
+
+        archive_file = target_path / f"{target}.md"
+        if not archive_file.exists():
+            return format_output("error", error=f"未找到 {target} 的档案文件")
+
+        is_class = is_class_folder(target_path)
+        is_one_on_one = is_one_on_one_folder(target_path)
+        archive_path = archive_file
 
         # 2. 读取档案内容获取学员名单（班课）
         content = archive_path.read_text(encoding="utf-8")
