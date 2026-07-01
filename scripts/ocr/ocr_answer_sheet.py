@@ -122,7 +122,6 @@ def call_vision_api(image_paths: list[str], model: str) -> str:
     })
 
     messages = [
-        {"role": "system", "content": "你是一个专业的 OCR 助手，擅长识别 IELTS 答题卡。"},
         {"role": "user", "content": content},
     ]
 
@@ -139,7 +138,9 @@ def call_vision_api(image_paths: list[str], model: str) -> str:
     }
 
     url = f"{base_url.rstrip('/')}/chat/completions"
-    response = requests.post(url, headers=headers, json=payload, timeout=60)
+    response = requests.post(
+        url, headers=headers, json=payload, timeout=(10, 300)
+    )
     response.raise_for_status()
 
     result = response.json()
@@ -224,7 +225,7 @@ def main():
     parser.add_argument("--vault", type=str, default=None, help="Vault 根目录路径")
     parser.add_argument("--image", type=str, help="图像文件路径（单张）")
     parser.add_argument("--images", nargs="+", help="图像文件路径列表（批量）")
-    parser.add_argument("--model", type=str, default="qwen-vl-plus", help="LLM 模型名（默认 qwen-vl-plus）")
+    parser.add_argument("--model", type=str, default="qwen3.6-plus", help="LLM 模型名（默认 qwen3.6-plus）")
     args = parser.parse_args()
 
     result = ocr_answer_sheet(

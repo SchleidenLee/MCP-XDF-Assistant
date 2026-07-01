@@ -1,0 +1,44 @@
+{
+  "task_id": "0ef27ae9",
+  "workflow": "end_of_class_feedback",
+  "input": {
+    "target": "3279",
+    "answer_sheet_folder": "D:\\Schleiden\\Desktop\\3279中级教材",
+    "config_file": "x:\\AI\\projects\\XDFManagerMCP\\configs\\中级教材.json",
+    "course_type": "中级教材"
+  },
+  "status": "failed",
+  "created_at": "2026-06-29T14:16:47.347183",
+  "updated_at": "2026-06-29T14:16:48.527455",
+  "current_step": 3,
+  "total_steps": 4,
+  "steps": [
+    {
+      "step": 1,
+      "name": "初始化结班缓存",
+      "status": "completed",
+      "started_at": "2026-06-29T14:16:47.347786",
+      "completed_at": "2026-06-29T14:16:47.427397",
+      "detail": {
+        "student_count": 9,
+        "image_count": 6
+      }
+    },
+    {
+      "step": 2,
+      "name": "OCR 识别答题卡",
+      "status": "failed",
+      "started_at": "2026-06-29T14:16:47.428173",
+      "completed_at": "2026-06-29T14:16:48.526975",
+      "detail": "杨笑语 答题卡识别失败: 脚本 ocr/ocr_answer_sheet.py 返回错误: 400 Client Error: Bad Request for url: https://coding.dashscope.aliyuncs.com/v1/chat/completions"
+    },
+    {
+      "step": 3,
+      "name": "错误",
+      "status": "failed",
+      "started_at": null,
+      "completed_at": "2026-06-29T14:16:48.527449",
+      "detail": "OCR 识别失败（杨笑语）: 脚本 ocr/ocr_answer_sheet.py 返回错误: 400 Client Error: Bad Request for url: https://coding.dashscope.aliyuncs.com/v1/chat/completions"
+    }
+  ]
+}

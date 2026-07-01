@@ -46,6 +46,10 @@ def _run_script(script_rel_path: str, **kwargs) -> dict:
             if isinstance(v, bool):
                 if v:
                     cmd.append(f"--{cmd_key}")
+            elif isinstance(v, list):
+                # 列表参数：传多个值（支持 argparse nargs="+"）
+                cmd.append(f"--{cmd_key}")
+                cmd.extend([str(item) for item in v])
             else:
                 cmd.append(f"--{cmd_key}")
                 cmd.append(str(v))
@@ -56,7 +60,7 @@ def _run_script(script_rel_path: str, **kwargs) -> dict:
 
     result = subprocess.run(
         cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, cwd=str(SCRIPTS_DIR),
-        encoding="utf-8", errors="replace", timeout=60, env=env,
+        encoding="utf-8", errors="replace", timeout=600, env=env,
         stdin=subprocess.DEVNULL
     )
 
@@ -306,72 +310,87 @@ def update_archive_index(target: str) -> str:
 # ===== Create =====
 
 @mcp.tool()
-def create_class(class_name: str, course_type: str, schedule_type: str) -> str:
+def create_class(class_name: str, first_class_date: str, course_type: str, schedule_type: str, students: str, first_class_time: str = None) -> str:
     """
     创建新的班课档案。
     生成班级主文件（含 Frontmatter、学员名单表格、课程记录索引区块）。
     
     Args:
         class_name: 班级名称/班号（如 "3164"），必填
+        first_class_date: 开班日期（YYYY-MM-DD），必填
         course_type: 课型（如 "初级讲义"、"中级教材"），必填
-        schedule_type: 排课类型（"weekend"=周末班，"weekday"=全日制），必填
+        schedule_type: 排课类型（"weekend"=周末班，"full-time"=全日制），必填
+        students: 学员名单（逗号分隔的字符串，如 "张三,李四"），必填
+        first_class_time: 开班时间（HH:MM），可选
     """
-    return json.dumps(_run_script("create/create_class.py", class_name=class_name, course_type=course_type, schedule_type=schedule_type), ensure_ascii=False)
+    return json.dumps(_run_script("create/create_class.py", class_name=class_name, first_class_date=first_class_date, course_type=course_type, schedule_type=schedule_type, students=students, first_class_time=first_class_time), ensure_ascii=False)
 
 
 @mcp.tool()
-def create_one_on_one(student_name: str, course_type: str) -> str:
+def create_one_on_one(student_name: str, first_class_date: str, course_type: str, schedule_type: str, first_class_time: str = None) -> str:
     """
     创建新的一对一学员档案。
     
     Args:
         student_name: 学员姓名，必填
+        first_class_date: 开班日期（YYYY-MM-DD），必填
         course_type: 课型（如 "初级讲义"、"中级教材"），必填
+        schedule_type: 排课类型（"weekend"=周末班，"full-time"=全日制），必填
+        first_class_time: 开班时间（HH:MM），可选
     """
-    return json.dumps(_run_script("create/create_one_on_one.py", student_name=student_name, course_type=course_type), ensure_ascii=False)
+    return json.dumps(_run_script("create/create_one_on_one.py", student=student_name, first_class_date=first_class_date, course_type=course_type, schedule_type=schedule_type, first_class_time=first_class_time), ensure_ascii=False)
 
 
 @mcp.tool()
-def create_class_lesson(target: str, lesson_num: int, date: str, need_feedback: bool = None) -> str:
+def create_class_lesson(target: str, dates: str, time_slots: list[int] = None, course_type: str = None) -> str:
     """
-    为班课创建新课次文件。
+    为班课创建新课次文件（支持批量创建）。
     自动创建 Lesson 文件和空的 Feedback 文件。
-    need_send_feedback 默认规则：周末班全需要，全日制班仅偶数课需要。
+    课次号会自动顺延，无需手动传入。
     
     Args:
         target: 班级名，必填
-        lesson_num: 课次号（如 2 表示第2课），必填
-        date: 课次日期（YYYY-MM-DD），必填
-        need_feedback: 是否需要发送反馈（可选，不传则自动计算）
+        dates: 课次日期列表（逗号分隔的字符串），必填。例如："2026-06-21,2026-06-22"
+        time_slots: 对应的上课时间段序号列表（1-5）。必填。
+                    时间映射：1=10:00, 2=12:20, 3=15:30, 4=17:50
+                    示例：[1, 3] 表示第一节在10点上，第二节在15:30上。
+        course_type: 课型（可选，不传则从档案读取）
     """
-    return json.dumps(_run_script("create/create_class_lesson.py", target=target, lesson_num=lesson_num, date=date, need_feedback=need_feedback), ensure_ascii=False)
+    dates_list = [d.strip() for d in dates.split(",") if d.strip()]
+    return json.dumps(_run_script("create/create_class_lesson.py", **{"class": target}, dates=dates_list, time_slots=time_slots, course_type=course_type), ensure_ascii=False)
 
 
 @mcp.tool()
-def create_one_on_one_lesson(target: str, date: str) -> str:
+def create_one_on_one_lesson(target: str, dates: str, time_slots: list[int] = None, course_type: str = None) -> str:
     """
-    为一对一学员创建新课次文件。
+    为一对一学员创建新课次文件（支持批量创建）。
+    课次号会自动顺延，时间段由 Agent 指定。
     
     Args:
         target: 一对一学员名，必填
-        date: 课次日期（YYYY-MM-DD），必填
+        dates: 课次日期列表（逗号分隔的字符串），必填。
+        time_slots: 对应的上课时间段序号列表（1-5）。必填。
+                    时间映射：1=10:00, 2=12:20, 3=15:30, 4=17:50, 5=20:10
+                    注意：学员的第 N 节课可以是当天的任意时间段。
+                    示例：[5, 1] 表示第一节在晚上20:10上，第二节在早上10:00上。
+        course_type: 课型（可选，不传则从档案读取）
     """
-    return json.dumps(_run_script("create/create_one_on_one_lesson.py", target=target, date=date), ensure_ascii=False)
+    dates_list = [d.strip() for d in dates.split(",") if d.strip()]
+    return json.dumps(_run_script("create/create_one_on_one_lesson.py", student=target, dates=dates_list, time_slots=time_slots, course_type=course_type), ensure_ascii=False)
 
 
 @mcp.tool()
-def create_test_feedback(target: str, test_name: str, date: str, student: str = None, content: str = "") -> str:
+def create_test_feedback(target: str, test_name: str, date: str) -> str:
     """
     为学员创建测试反馈（如入门测、阶段测、结班测）。
+    自动生成测试总览页，并从档案读取学员名单添加空 checklist。
     
     Args:
         target: 班级名或一对一学员名（如 "3164"），必填
         test_name: 测试名称（如 "结班测试"），必填
         date: 测试日期（YYYY-MM-DD），必填
-        student: 学员姓名（一对一时不需要，班课时必填）
-        content: 测试反馈内容
     """
-    return json.dumps(_run_script("create/create_test_feedback.py", target=target, test_name=test_name, date=date, student=student, content=content), ensure_ascii=False)
+    return json.dumps(_run_script("create/create_test_feedback.py", target=target, test_name=test_name, date=date), ensure_ascii=False)
 
 
 # ===== Generate Student Summary =====

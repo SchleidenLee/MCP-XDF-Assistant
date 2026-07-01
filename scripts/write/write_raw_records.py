@@ -15,10 +15,13 @@
 """
 
 import argparse
+import sys
+import os
 import json
 import re
-import sys
 from pathlib import Path
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from xdf_utils import resolve_vault, resolve_target, read_md_file, format_output
 

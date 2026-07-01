@@ -19,6 +19,7 @@ import subprocess
 import re
 from datetime import datetime
 from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # 添加父目录到 path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -175,7 +176,7 @@ def _init_cache(vault, target, answer_sheet_folder, config_file):
                        config_file=config_file)
 
 
-def _ocr_image(vault, image_path, model="qwen-vl-plus"):
+def _ocr_image(vault, image_path, model="qwen3.6-plus"):
     """OCR 单张答题卡"""
     return _run_script("ocr/ocr_answer_sheet.py",
                        vault=vault, image=image_path, model=model)
@@ -387,8 +388,7 @@ def _build_feedback_content(student_name, grade_result, feedback_result):
     else:
         completion_block = "学员未参加结班测"
 
-    content = f"# {student_name} 结班反馈\n\n"
-    content += f"#### **【完成情况】**\n\n{completion_block}\n\n"
+    content = f"#### **【完成情况】**\n\n{completion_block}\n\n"
     content += f"#### **【本阶段学习分析】**\n\n"
     content += f"**学生优势：**\n\n{feedback_result['strengths']}\n\n"
     content += f"**提升项：**\n\n{feedback_result['improvements']}\n\n"
@@ -486,20 +486,34 @@ def run_workflow(vault=None, answer_sheet_folder=None, config_file=None, course_
         if answer_sheets:
             _update_step(progress, 2, "OCR 识别答题卡", "running")
             ocr_results = cache.get("ocr_results", {})
+            ocr_errors = []
 
-            for student in students:
-                if student in answer_sheets:
-                    image_path = answer_sheets[student]
-                    try:
-                        ocr_result = _ocr_image(vault_path, image_path)
-                        ocr_results[student] = {
-                            "answers": ocr_result["data"]["answers"],
-                            "confidence": ocr_result["data"]["confidence"]
-                        }
-                    except Exception as e:
-                        _update_step(progress, 2, "OCR 识别答题卡", "failed",
-                                     f"{student} 答题卡识别失败: {str(e)}")
-                        raise RuntimeError(f"OCR 识别失败（{student}）: {str(e)}")
+            def _ocr_student(student_name, image_path):
+                try:
+                    ocr_result = _ocr_image(vault_path, image_path)
+                    return student_name, {
+                        "answers": ocr_result["data"]["answers"],
+                        "confidence": ocr_result["data"]["confidence"]
+                    }, None
+                except Exception as e:
+                    return student_name, None, f"{student_name}: {str(e)}"
+
+            with ThreadPoolExecutor(max_workers=3) as executor:
+                futures = {
+                    executor.submit(_ocr_student, student, answer_sheets[student]): student
+                    for student in students if student in answer_sheets
+                }
+                for future in as_completed(futures):
+                    student, result, error = future.result()
+                    if result:
+                        ocr_results[student] = result
+                    else:
+                        ocr_errors.append(error)
+
+            if ocr_errors:
+                _update_step(progress, 2, "OCR 识别答题卡", "failed",
+                             f"部分学员识别失败: {'; '.join(ocr_errors[:3])}")
+                raise RuntimeError(f"OCR 识别失败: {'; '.join(ocr_errors[:3])}")
 
             cache["ocr_results"] = ocr_results
             _update_cache(cache, cache_path)
@@ -550,11 +564,10 @@ def run_workflow(vault=None, answer_sheet_folder=None, config_file=None, course_
         output_dir.mkdir(parents=True, exist_ok=True)
 
         feedback_files = []
-        for student in students:
+
+        def _generate_for_student(student):
             grade_result = grade_results.get(student)
-            # 从缓存中读取历史反馈
             history = cache.get("historical_feedback", {}).get(student, [])
-            # 获取学员答案（用于题型分析）
             student_answers = None
             if student in cache.get("ocr_results", {}):
                 student_answers = cache["ocr_results"][student].get("answers")
@@ -563,14 +576,18 @@ def run_workflow(vault=None, answer_sheet_folder=None, config_file=None, course_
                 fb_result = _generate_student_feedback(
                     student, grade_result, history, course_info, config, student_answers
                 )
-
                 content = _build_feedback_content(student, grade_result, fb_result)
                 output_path = output_dir / f"{student}.md"
                 output_path.write_text(content, encoding="utf-8")
-
-                feedback_files.append(str(output_path))
+                return str(output_path)
             except Exception as e:
-                feedback_files.append(f"{student}: {str(e)}")
+                return f"{student}: {str(e)}"
+
+        with ThreadPoolExecutor(max_workers=3) as executor:
+            futures = {executor.submit(_generate_for_student, student): student for student in students}
+            for future in as_completed(futures):
+                result = future.result()
+                feedback_files.append(result)
 
         _update_step(progress, 4, "生成结班反馈", "completed", {
             "feedback_files": feedback_files

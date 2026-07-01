@@ -160,7 +160,6 @@ archive: "[[{class_name}|📁 档案首页]]"
 <!-- AI_GENERATED_END -->
 
 ---
-
 ## ✍️作业记录
 - [ ] 发送作业到家长群
 {month_day}阅读作业：
@@ -253,6 +252,7 @@ def create_class_lesson(
     vault_path: str | None,
     class_name: str,
     dates: list[str],
+    time_slots: list[int] | None,
     course_type: str | None,
 ) -> str:
     try:
@@ -281,7 +281,7 @@ def create_class_lesson(
 
         created_lessons = []
 
-        for date_time_str in dates:
+        for i, date_time_str in enumerate(dates):
             # Parse date and time
             date_time_str = date_time_str.strip()
             if " " in date_time_str:
@@ -290,8 +290,16 @@ def create_class_lesson(
                 date_part = date_time_str
                 time_part = None
 
-            # Get preset time based on lesson number
-            time_part = get_time_for_lesson(lesson_number, time_part)
+            # 优先使用传入的时间段索引
+            slot_index = None
+            if time_slots and i < len(time_slots):
+                slot_index = time_slots[i]
+            
+            if slot_index and slot_index in SCHEDULE_TIMES:
+                time_part = SCHEDULE_TIMES[slot_index]
+            elif not time_part:
+                # Fallback to lesson number mapping if no time provided (legacy behavior)
+                time_part = get_time_for_lesson(lesson_number)
 
             # Calculate ISO datetime (China timezone +08:00)
             date_iso = f"{date_part}T{time_part}:00+08:00"
@@ -368,6 +376,13 @@ def main():
         help='Lesson dates (e.g. "2026-06-21 10:00" "2026-06-22 12:20")',
     )
     parser.add_argument(
+        "--time-slots",
+        type=int,
+        nargs="+",
+        default=None,
+        help="Time slot indices (1-5) for each date. 1=10:00, 2=12:20... Overrides time in dates.",
+    )
+    parser.add_argument(
         "--course-type",
         default=None,
         help="Course type (optional, read from archive if not provided)",
@@ -378,6 +393,7 @@ def main():
         vault_path=args.vault,
         class_name=args.class_name,
         dates=args.dates,
+        time_slots=args.time_slots,
         course_type=args.course_type,
     )
     print(result)

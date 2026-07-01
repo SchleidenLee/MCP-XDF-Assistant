@@ -1,0 +1,70 @@
+{
+  "task_id": "696bd8dd",
+  "workflow": "end_of_class_feedback",
+  "input": {
+    "target": "3164",
+    "answer_sheet_folder": "D:\\Schleiden\\Desktop\\3164中级教材",
+    "config_file": "x:\\AI\\projects\\XDFManagerMCP\\configs\\中级教材.json",
+    "course_type": "中级教材"
+  },
+  "status": "completed",
+  "created_at": "2026-06-30T11:38:07.026458",
+  "updated_at": "2026-06-30T11:48:32.752806",
+  "current_step": 4,
+  "total_steps": 4,
+  "steps": [
+    {
+      "step": 1,
+      "name": "初始化结班缓存",
+      "status": "completed",
+      "started_at": "2026-06-30T11:38:07.027216",
+      "completed_at": "2026-06-30T11:38:07.128737",
+      "detail": {
+        "student_count": 9,
+        "image_count": 2
+      }
+    },
+    {
+      "step": 2,
+      "name": "OCR 识别答题卡",
+      "status": "completed",
+      "started_at": "2026-06-30T11:38:07.129765",
+      "completed_at": "2026-06-30T11:39:11.439638",
+      "detail": {
+        "ocr_done": 2,
+        "total": 9
+      }
+    },
+    {
+      "step": 3,
+      "name": "批改 + 估分",
+      "status": "completed",
+      "started_at": "2026-06-30T11:39:11.440099",
+      "completed_at": "2026-06-30T11:39:11.621793",
+      "detail": {
+        "graded_done": 2,
+        "total": 9
+      }
+    },
+    {
+      "step": 4,
+      "name": "生成结班反馈",
+      "status": "completed",
+      "started_at": "2026-06-30T11:39:11.622295",
+      "completed_at": "2026-06-30T11:48:32.752361",
+      "detail": {
+        "feedback_files": [
+          "D:\\Schleiden\\Obsidian\\XDF\\Current Class\\3164\\3164结班反馈\\艾克丹.md",
+          "D:\\Schleiden\\Obsidian\\XDF\\Current Class\\3164\\3164结班反馈\\刘瑞琪.md",
+          "D:\\Schleiden\\Obsidian\\XDF\\Current Class\\3164\\3164结班反馈\\屯妮萨.md",
+          "D:\\Schleiden\\Obsidian\\XDF\\Current Class\\3164\\3164结班反馈\\刘禹铎.md",
+          "D:\\Schleiden\\Obsidian\\XDF\\Current Class\\3164\\3164结班反馈\\王豪杰.md",
+          "D:\\Schleiden\\Obsidian\\XDF\\Current Class\\3164\\3164结班反馈\\张晨曦.md",
+          "D:\\Schleiden\\Obsidian\\XDF\\Current Class\\3164\\3164结班反馈\\古丽斯坦.md",
+          "D:\\Schleiden\\Obsidian\\XDF\\Current Class\\3164\\3164结班反馈\\巴斯尔.md",
+          "D:\\Schleiden\\Obsidian\\XDF\\Current Class\\3164\\3164结班反馈\\孟少栋.md"
+        ]
+      }
+    }
+  ]
+}

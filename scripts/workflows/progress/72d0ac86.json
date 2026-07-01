@@ -1,0 +1,44 @@
+{
+  "task_id": "72d0ac86",
+  "workflow": "end_of_class_feedback",
+  "input": {
+    "target": "3279",
+    "answer_sheet_folder": "D:\\Schleiden\\Desktop\\3279中级教材",
+    "config_file": "x:\\AI\\projects\\XDFManagerMCP\\configs\\中级教材.json",
+    "course_type": "中级教材"
+  },
+  "status": "failed",
+  "created_at": "2026-06-30T20:02:18.467147",
+  "updated_at": "2026-06-30T20:07:19.559407",
+  "current_step": 3,
+  "total_steps": 4,
+  "steps": [
+    {
+      "step": 1,
+      "name": "初始化结班缓存",
+      "status": "completed",
+      "started_at": "2026-06-30T20:02:18.467811",
+      "completed_at": "2026-06-30T20:02:18.562660",
+      "detail": {
+        "student_count": 9,
+        "image_count": 6
+      }
+    },
+    {
+      "step": 2,
+      "name": "OCR 识别答题卡",
+      "status": "failed",
+      "started_at": "2026-06-30T20:02:18.563590",
+      "completed_at": "2026-06-30T20:07:19.558756",
+      "detail": "杨笑语 答题卡识别失败: 脚本 ocr/ocr_answer_sheet.py 返回错误: HTTPSConnectionPool(host='coding.dashscope.aliyuncs.com', port=443): Read timed out. (read timeout=300)"
+    },
+    {
+      "step": 3,
+      "name": "错误",
+      "status": "failed",
+      "started_at": null,
+      "completed_at": "2026-06-30T20:07:19.559397",
+      "detail": "OCR 识别失败（杨笑语）: 脚本 ocr/ocr_answer_sheet.py 返回错误: HTTPSConnectionPool(host='coding.dashscope.aliyuncs.com', port=443): Read timed out. (read timeout=300)"
+    }
+  ]
+}
